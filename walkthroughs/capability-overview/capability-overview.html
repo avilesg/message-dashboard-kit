@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Message dashboard: capability overview</title>
+<style>
+  :root{
+    --bg:#f6f4ef; --bg2:#ffffff; --ink:#0f1f3d; --muted:#3d4a63;
+    --accent:#0f7c74; --accent-soft:#e3f1ef; --navy:#13285a; --line:#d9d4c9;
+    --warm:#b5651d; --warm-soft:#fbf3ea;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--bg);color:var(--ink);overflow:hidden;
+    font-family:"Inter","Segoe UI","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .deck{position:relative;width:100vw;height:100vh}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+    padding:6vh 8vw 9vh;opacity:0;visibility:hidden;transform:translateY(12px);
+    transition:opacity .45s ease, transform .45s ease, visibility .45s}
+  .slide.active{opacity:1;visibility:visible;transform:none}
+  .eyebrow{font-size:clamp(14px,1.5vw,22px);letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-bottom:2.4vh}
+  h1{font-size:clamp(40px,6vw,92px);line-height:1.04;font-weight:800;letter-spacing:-.02em;color:var(--navy);max-width:20ch}
+  h2{font-size:clamp(30px,3.9vw,60px);line-height:1.08;font-weight:800;letter-spacing:-.015em;color:var(--navy)}
+  .lede{font-size:clamp(20px,2.1vw,32px);line-height:1.4;color:var(--muted);margin-top:3vh;max-width:44ch}
+  .lede b{color:var(--ink)}
+  a{color:var(--accent);text-decoration:none;border-bottom:2px solid rgba(15,124,116,.3)}
+  .url{font-family:"JetBrains Mono","SFMono-Regular",Consolas,monospace;font-size:.85em;color:var(--accent);
+    background:var(--accent-soft);padding:.15em .45em;border-radius:8px;word-break:break-all}
+  .chips{display:flex;flex-wrap:wrap;gap:1.2vw;margin-top:5vh}
+  .chip{background:var(--bg2);border:2px solid var(--line);border-radius:999px;
+    padding:1.2vh 1.7vw;font-size:clamp(18px,1.8vw,28px);font-weight:700;color:var(--navy)}
+  .chip .l{display:inline-flex;width:1.6em;height:1.6em;border-radius:50%;background:var(--accent);color:#fff;
+    align-items:center;justify-content:center;font-weight:800;margin-right:.5em;font-size:.85em}
+  .chip small{font-weight:500;color:var(--muted);margin-left:.3em}
+  .title-bg{position:absolute;right:-6vw;top:50%;transform:translateY(-50%);width:46vw;height:46vw;border-radius:50%;
+    background:radial-gradient(circle at 40% 40%, #e3f1ef 0%, rgba(227,241,239,0) 70%);z-index:-1}
+  .opt-head{display:flex;align-items:center;gap:1.4vw}
+  .badge{flex:none;display:inline-flex;width:clamp(56px,5.4vw,84px);height:clamp(56px,5.4vw,84px);border-radius:22px;
+    background:var(--accent);color:#fff;align-items:center;justify-content:center;font-weight:800;font-size:clamp(30px,3.2vw,50px)}
+  .what{font-size:clamp(18px,1.8vw,27px);line-height:1.4;color:var(--muted);margin-top:2.4vh;max-width:70ch}
+  .what b{color:var(--ink)}
+  .pc{display:grid;grid-template-columns:1fr 1fr;gap:2vw;margin-top:3.6vh}
+  .box{background:var(--bg2);border:2px solid var(--line);border-radius:22px;padding:3vh 2vw}
+  .box.pro{border-top:8px solid var(--accent)}
+  .box.con{border-top:8px solid var(--warm)}
+  .box h3{font-size:clamp(15px,1.35vw,21px);letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:1.8vh}
+  .box.pro h3{color:var(--accent)} .box.con h3{color:var(--warm)}
+  .box ul{list-style:none;display:grid;gap:1.6vh}
+  .box li{font-size:clamp(17px,1.65vw,26px);line-height:1.35;color:var(--muted);padding-left:1.3em;position:relative}
+  .box li b{color:var(--ink)}
+  .box.pro li::before{content:"+";position:absolute;left:0;top:-.05em;font-weight:800;color:var(--accent)}
+  .box.con li::before{content:"–";position:absolute;left:0;top:-.05em;font-weight:800;color:var(--warm)}
+  .best{margin-top:2.6vh;font-size:clamp(16px,1.5vw,23px);color:var(--muted)}
+  .best b{color:var(--navy)}
+  /* table */
+  table{width:100%;border-collapse:separate;border-spacing:0;margin-top:3.4vh;background:var(--bg2);
+    border:2px solid var(--line);border-radius:20px;overflow:hidden}
+  th,td{text-align:left;vertical-align:top;padding:1.6vh 1.3vw;font-size:clamp(14px,1.35vw,21px);line-height:1.32;color:var(--muted);
+    border-bottom:1px solid var(--line)}
+  tr:last-child td{border-bottom:none}
+  th{background:var(--navy);color:#fff;font-size:clamp(15px,1.45vw,23px);font-weight:800}
+  th small{display:block;font-weight:500;opacity:.8;font-size:.72em;margin-top:.2em}
+  td.row{font-weight:800;color:var(--navy);width:15%;background:#faf8f3}
+  td b{color:var(--ink)}
+  .good{color:var(--accent);font-weight:800}
+  .meh{color:var(--warm);font-weight:800}
+  /* reminder */
+  .own{display:grid;grid-template-columns:1fr 1fr;gap:2vw;margin-top:4vh}
+  .card{background:var(--bg2);border:2px solid var(--line);border-radius:22px;padding:3vh 2vw}
+  .card.hl{border-color:var(--accent);background:var(--accent-soft)}
+  .card h3{font-size:clamp(20px,2vw,30px);color:var(--navy);margin-bottom:1.4vh}
+  .card ul{list-style:none;display:grid;gap:1.3vh}
+  .card li{font-size:clamp(17px,1.6vw,25px);line-height:1.35;color:var(--muted);padding-left:1.3em;position:relative}
+  .card li::before{content:"";position:absolute;left:0;top:.5em;width:.5em;height:.5em;border-radius:50%;background:var(--accent)}
+  .card li b{color:var(--ink)}
+  .note{margin-top:3.4vh;border-left:6px solid var(--warm);background:var(--warm-soft);border-radius:0 14px 14px 0;
+    padding:2vh 1.8vw;font-size:clamp(16px,1.5vw,23px);line-height:1.4;color:#4a3a2a}
+  .note b{color:#3a2a1a}
+  /* chrome */
+  .counter{position:fixed;right:2.4vw;bottom:2.6vh;font-size:clamp(13px,1.1vw,17px);color:var(--muted);
+    font-variant-numeric:tabular-nums;letter-spacing:.06em;z-index:10}
+  .progress{position:fixed;left:0;bottom:0;height:5px;background:var(--accent);transition:width .45s ease;z-index:10}
+  .hint{position:fixed;left:2.4vw;bottom:2.6vh;font-size:clamp(12px,1vw,15px);color:#8a93a6;z-index:10;transition:opacity .6s}
+  @media print{
+    @page{size:landscape;margin:0}
+    html,body{overflow:visible;height:auto}
+    .deck{height:auto}
+    .slide{position:relative;opacity:1;visibility:visible;transform:none;height:100vh;page-break-after:always;break-after:page}
+    .counter,.progress,.hint{display:none}
+  }
+
+  /* components map */
+  .comp{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4vh 1.4vw;margin-top:3.2vh}
+  .cc{background:var(--bg2);border:2px solid var(--line);border-radius:18px;padding:1.6vh 1.2vw;display:flex;gap:.9vw;align-items:flex-start}
+  .cc .n{flex:none;display:inline-flex;width:2.1em;height:2.1em;border-radius:12px;background:var(--accent);color:#fff;
+    align-items:center;justify-content:center;font-weight:800;font-size:clamp(14px,1.25vw,19px)}
+  .cc.opt .n{background:var(--warm)}
+  .cc h4{font-size:clamp(17px,1.55vw,24px);color:var(--navy);line-height:1.15}
+  .cc p{font-size:clamp(13px,1.15vw,18px);line-height:1.3;color:var(--muted);margin-top:.5vh}
+  .cc.opt{border-style:dashed;border-color:#e2c9ae}
+  .legend{margin-top:2vh;font-size:clamp(13px,1.1vw,17px);color:var(--muted)}
+  .dot{display:inline-block;width:.8em;height:.8em;border-radius:4px;vertical-align:-.05em;margin:0 .35em 0 1em}
+  /* image */
+  .arch{margin-top:2.4vh;flex:1;min-height:0;display:flex;justify-content:center}
+  .arch img{max-height:68vh;max-width:100%;border-radius:18px;border:2px solid var(--line);background:#fff}
+  /* flow */
+  .flow{display:flex;align-items:stretch;gap:.8vw;margin-top:5vh}
+  .step{flex:1;background:var(--bg2);border:2px solid var(--line);border-radius:20px;padding:2.6vh 1.1vw;text-align:center;position:relative}
+  .step .k{display:inline-flex;width:2.2em;height:2.2em;border-radius:50%;background:var(--navy);color:#fff;align-items:center;justify-content:center;
+    font-weight:800;font-size:clamp(15px,1.3vw,20px);margin-bottom:1.4vh}
+  .step h4{font-size:clamp(18px,1.7vw,26px);color:var(--navy)}
+  .step p{font-size:clamp(14px,1.2vw,19px);color:var(--muted);line-height:1.32;margin-top:1vh}
+  .step.hl{border-color:var(--accent);background:var(--accent-soft)}
+  .arr{flex:none;align-self:center;font-size:clamp(22px,2.2vw,34px);color:var(--accent);font-weight:800}
+  .branch{margin-top:3vh;display:flex;justify-content:flex-end}
+  .branch .step{flex:none;width:36%;border-style:dashed;border-color:#e2c9ae;background:var(--warm-soft);text-align:left;padding:2vh 1.4vw}
+  .branch .step h4{color:#7a4413}
+  /* fit list */
+  .fit{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4vw;margin-top:4vh}
+  .fit .card{display:flex;flex-direction:column}
+  .fit .card .tag{font-size:clamp(13px,1.1vw,17px);letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--accent);margin-bottom:1.2vh}
+  .fit .card p{font-size:clamp(15px,1.4vw,22px);line-height:1.35;color:var(--muted)}
+  .fit .card p b{color:var(--ink)}
+  .fit .file{margin-top:auto;padding-top:1.6vh}
+  /* safety */
+  .safe{display:grid;grid-template-columns:1fr 1fr;gap:2vw;margin-top:4vh}
+  .safe .card h3{display:flex;align-items:center;gap:.6em}
+  .ico{flex:none;display:inline-flex;width:1.8em;height:1.8em;border-radius:12px;background:var(--accent);color:#fff;align-items:center;justify-content:center;font-size:.85em}
+  .card.warm{border-color:#e2c9ae;background:var(--warm-soft)}
+  .card.warm .ico{background:var(--warm)}
+  .card.warm li::before{background:var(--warm)}
+  .card p{font-size:clamp(17px,1.6vw,25px);line-height:1.38;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- 1 Title -->
+  <section class="slide active">
+    <div class="title-bg"></div>
+    <div class="eyebrow">Zoom workshop · Capability overview</div>
+    <h1>Your group chat → your own private dashboard</h1>
+    <p class="lede">What you're building today: a bot that <b>syncs your WhatsApp group</b>, <b>sorts it by topic</b>, and shows it on a <b>dashboard only you can see</b>.</p>
+    <div class="chips">
+      <span class="chip"><span class="l">1</span>Sync</span>
+      <span class="chip"><span class="l">2</span>Store</span>
+      <span class="chip"><span class="l">3</span>Classify</span>
+      <span class="chip"><span class="l">4</span>Dashboard<small>+ optional alerts</small></span>
+    </div>
+  </section>
+
+  <!-- 2 Principle -->
+  <section class="slide">
+    <div class="eyebrow">The principle</div>
+    <h2>Your copy, on your bot's computer. <span style="color:var(--accent)">Only the recipe is shared.</span></h2>
+    <div class="own">
+      <div class="card hl"><h3>Your copy</h3><ul>
+        <li>Your bot syncs <b>your</b> group, from <b>your</b> phone</li>
+        <li>Messages and media stay on <b>your bot's computer</b></li>
+        <li>Nobody else's bot can see your dashboard</li>
+      </ul></div>
+      <div class="card"><h3>The shared recipe</h3><ul>
+        <li><b>Kit repo</b>: README, tutorial, topics, scripts, prompts</li>
+        <li><b>Optional bot template</b>: the same recipe, with guided setup</li>
+        <li>Contains <b>no messages and no contacts</b></li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- 3 Components map -->
+  <section class="slide">
+    <div class="eyebrow">Components map</div>
+    <h2>The nine pieces, in plain words</h2>
+    <div class="comp">
+      <div class="cc"><span class="n">1</span><div><h4>WhatsApp</h4><p>The source group chat, on your phone</p></div></div>
+      <div class="cc"><span class="n">2</span><div><h4>wacli</h4><p>Linked-device sync, paired by QR. <b>Read-only</b></p></div></div>
+      <div class="cc"><span class="n">3</span><div><h4>Store</h4><p>Messages + media, private on the bot's computer</p></div></div>
+      <div class="cc"><span class="n">4</span><div><h4>Ontology / topics</h4><p>Shared vocabulary of topics, from the kit</p></div></div>
+      <div class="cc"><span class="n">5</span><div><h4>Classifier + scripts</h4><p>Tag each message with its topics</p></div></div>
+      <div class="cc"><span class="n">6</span><div><h4>Message tracker Page</h4><p>The dashboard: Global / Custom / Roster, facets, threads</p></div></div>
+      <div class="cc opt"><span class="n">7</span><div><h4>Alerts <small style="font-weight:500;color:var(--warm)">optional</small></h4><p>Critical alerts + digests, only to your bot chat</p></div></div>
+      <div class="cc"><span class="n">8</span><div><h4>Kit repo + bot template</h4><p>How you start. Template is optional</p></div></div>
+      <div class="cc"><span class="n">9</span><div><h4>personal.json backup</h4><p>Prefs and alert settings survive a bot reset (not messages)</p></div></div>
+    </div>
+  </section>
+
+  <!-- 4 Architecture -->
+  <section class="slide" style="justify-content:flex-start;padding-top:5vh">
+    <div class="eyebrow" style="margin-bottom:1vh">Architecture</div>
+    <h2>How the pieces connect</h2>
+    <div class="arch"><img src="message-dashboard-architecture.jpg" alt="Phone to wacli to private store, then the bot builds the tracker Page, alerts and roster; the starter kit on GitHub supplies ontology, scripts and prompts"></div>
+  </section>
+
+  <!-- 5 Data flow -->
+  <section class="slide">
+    <div class="eyebrow">How data flows</div>
+    <h2>Phone → wacli → store → classify → tracker</h2>
+    <div class="flow">
+      <div class="step"><span class="k">1</span><h4>Phone</h4><p>Your WhatsApp group, as usual</p></div>
+      <span class="arr">→</span>
+      <div class="step"><span class="k">2</span><h4>wacli</h4><p>Linked device copies new messages. Never sends</p></div>
+      <span class="arr">→</span>
+      <div class="step"><span class="k">3</span><h4>Store</h4><p>Saved on the bot's computer</p></div>
+      <span class="arr">→</span>
+      <div class="step"><span class="k">4</span><h4>Classify</h4><p>Scripts tag topics from the ontology</p></div>
+      <span class="arr">→</span>
+      <div class="step hl"><span class="k">5</span><h4>Tracker Page</h4><p>Filter by topic, person, thread</p></div>
+    </div>
+    <div class="branch"><div class="step"><h4>+ Optional alerts</h4><p>Critical items and digests go only to <b>your</b> bot chat, never to the group</p></div></div>
+  </section>
+
+  <!-- 6 Shared vs private -->
+  <section class="slide">
+    <div class="eyebrow">Shared vs private</div>
+    <h2>What leaves your bot, and what never does</h2>
+    <div class="own">
+      <div class="card hl"><h3>Private: stays on your bot's computer</h3><ul>
+        <li>The <b>WhatsApp archive</b> (messages + media)</li>
+        <li>The <b>dashboard</b> and its outputs</li>
+        <li>Group ID, names, people lists, alert keywords</li>
+        <li><b>personal.json</b> (your private prefs backup, no messages)</li>
+      </ul></div>
+      <div class="card"><h3>Shared: the public recipe</h3><ul>
+        <li><b>Kit repo</b>: tutorial, ontology, scripts, prompt templates</li>
+        <li><b>Optional bot template</b>, scrubbed of personal data</li>
+        <li>A <b>sample</b> config, never your real one</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- 7 Where Zoom content fits -->
+  <section class="slide">
+    <div class="eyebrow">Today's materials</div>
+    <h2>Where each piece of the workshop fits</h2>
+    <div class="fit">
+      <div class="card hl"><div class="tag">a · Now</div><p><b>This overview</b>: the components and how they connect</p><div class="file"><span class="url">capability-overview.html</span></div></div>
+      <div class="card"><div class="tag">b · Next</div><p><b>Startup options A / B / C</b>: new bot + kit, template, or fork</p><div class="file"><span class="url">startup-options.html</span></div></div>
+      <div class="card"><div class="tag">c · Leave-behind</div><p><b>Key prompts handout</b>: the setup prompts, numbered</p><div class="file"><span class="url">key-prompts-handout.html</span></div></div>
+      <div class="card"><div class="tag">d · Reference</div><p><b>Tutorial Page</b>: the full step-by-step walkthrough</p><div class="file"><span class="url">link in Zoom chat</span></div></div>
+    </div>
+  </section>
+
+  <!-- 8 Safety -->
+  <section class="slide">
+    <div class="eyebrow">Safety</div>
+    <h2>Two rules that keep your group safe</h2>
+    <div class="safe">
+      <div class="card hl"><h3><span class="ico">🔒</span>Send lock on</h3>
+        <p>The bot <b>reads</b> the group; it <b>never posts</b> to it. Alerts and digests go only to your own bot chat.</p></div>
+      <div class="card warm"><h3><span class="ico">⚠</span>Don't republish</h3>
+        <p>Group messages, names and photos are <b>other people's content</b>. Keep them in your private dashboard; don't share screenshots or exports.</p></div>
+    </div>
+  </section>
+
+</div>
+
+<div class="hint" id="hint">← → / Space to navigate · F to toggle fullscreen</div>
+<div class="counter" id="counter">1 / 8</div>
+<div class="progress" id="progress"></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0, total=slides.length;
+  var counter=document.getElementById('counter'), progress=document.getElementById('progress'), hint=document.getElementById('hint');
+  function fromHash(){var n=parseInt((location.hash||'').replace('#',''),10);return (n>=1&&n<=total)?n-1:0;}
+  function show(n){
+    i=Math.max(0,Math.min(total-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i);});
+    counter.textContent=(i+1)+' / '+total;
+    progress.style.width=((i+1)/total*100)+'%';
+    if(history.replaceState) history.replaceState(null,'','#'+(i+1));
+  }
+  function next(){show(i+1);} function prev(){show(i-1);}
+  document.addEventListener('keydown',function(e){
+    var k=e.key;
+    if(k==='ArrowRight'||k==='ArrowDown'||k===' '||k==='PageDown'||k==='Enter'){e.preventDefault();next();}
+    else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'||k==='Backspace'){e.preventDefault();prev();}
+    else if(k==='Home'){show(0);} else if(k==='End'){show(total-1);}
+    else if(k==='f'||k==='F'){ if(!document.fullscreenElement){document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();} else {document.exitFullscreen&&document.exitFullscreen();} }
+    hint.style.opacity='0';
+  });
+  document.getElementById('deck').addEventListener('click',function(e){
+    if(e.target.closest('a')) return;
+    if(e.shiftKey) prev(); else next(); hint.style.opacity='0';
+  });
+  document.addEventListener('contextmenu',function(e){e.preventDefault();prev();});
+  setTimeout(function(){hint.style.opacity='0';},6000);
+  show(fromHash());
+})();
+</script>
+</body>
+</html>

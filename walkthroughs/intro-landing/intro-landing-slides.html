@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From many AIs to shared meaning: an intro</title>
+<style>
+  :root{
+    --bg:#f6f4ef; --bg2:#ffffff; --ink:#0f1f3d; --muted:#3d4a63;
+    --accent:#0f7c74; --accent-soft:#e3f1ef; --navy:#13285a; --line:#d9d4c9;
+    --warm:#b5651d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--bg);color:var(--ink);overflow:hidden;
+    font-family:"Inter","Segoe UI","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .deck{position:relative;width:100vw;height:100vh}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+    padding:6vh 8vw 9vh;opacity:0;visibility:hidden;transform:translateY(12px);
+    transition:opacity .45s ease, transform .45s ease, visibility .45s}
+  .slide.active{opacity:1;visibility:visible;transform:none}
+  .eyebrow{font-size:clamp(14px,1.5vw,22px);letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-bottom:2.4vh}
+  h1{font-size:clamp(40px,6.2vw,96px);line-height:1.04;font-weight:800;letter-spacing:-.02em;color:var(--navy)}
+  h2{font-size:clamp(34px,4.6vw,72px);line-height:1.08;font-weight:800;letter-spacing:-.015em;color:var(--navy);max-width:22ch}
+  .lede{font-size:clamp(20px,2.2vw,34px);line-height:1.4;color:var(--muted);margin-top:3vh;max-width:36ch}
+  .lede b,.lines b{color:var(--ink)}
+  .lines{list-style:none;margin-top:4vh;display:grid;gap:2.2vh;max-width:60ch}
+  .lines li{font-size:clamp(19px,2vw,31px);line-height:1.35;color:var(--muted);padding-left:1.4em;position:relative}
+  .lines li::before{content:"";position:absolute;left:0;top:.5em;width:.55em;height:.55em;border-radius:50%;background:var(--accent)}
+  .split{display:grid;grid-template-columns:1.05fr 1fr;gap:5vw;align-items:center}
+  .chips{display:flex;flex-wrap:wrap;gap:1.2vw;margin-top:5vh}
+  .chip{background:var(--bg2);border:2px solid var(--line);border-radius:999px;
+    padding:1.1vh 1.6vw;font-size:clamp(18px,1.8vw,28px);font-weight:600;color:var(--navy)}
+  .chip small{display:block;font-size:.6em;font-weight:500;color:var(--muted)}
+  .card{background:var(--bg2);border:2px solid var(--line);border-radius:22px;padding:3.2vh 2.2vw}
+  .card h3{font-size:clamp(20px,2vw,30px);color:var(--navy);margin-bottom:1vh}
+  .card p{font-size:clamp(16px,1.55vw,24px);line-height:1.38;color:var(--muted)}
+  .tag{display:inline-block;font-weight:800;color:var(--accent);margin-right:.4em}
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6vw;margin-top:4.5vh}
+  .note{margin-top:3.5vh;border-left:6px solid var(--warm);background:#fbf3ea;border-radius:0 14px 14px 0;
+    padding:2vh 1.8vw;font-size:clamp(16px,1.5vw,23px);line-height:1.4;color:#4a3a2a;max-width:80ch}
+  .note b{color:#3a2a1a}
+  /* drift visual */
+  .answers{display:grid;gap:1.6vh}
+  .bubble{background:var(--bg2);border:2px solid var(--line);border-radius:18px;padding:2vh 1.6vw;
+    font-size:clamp(17px,1.6vw,25px);color:var(--muted);line-height:1.35}
+  .bubble.q{background:var(--navy);color:#fff;border-color:var(--navy);font-weight:600}
+  .bubble .who{display:block;font-size:.7em;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:.4vh}
+  /* wording */
+  .words{display:grid;gap:1.6vh}
+  .wordrow{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1vw}
+  .w{background:var(--bg2);border:2px solid var(--line);border-radius:14px;padding:1.5vh 1.2vw;
+    font-size:clamp(17px,1.7vw,27px);text-align:center;color:var(--navy);font-weight:600}
+  .w.alt{border-style:dashed;color:var(--muted);font-weight:500}
+  .arrow{font-size:clamp(18px,2vw,30px);color:var(--accent);font-weight:800}
+  .wordhead{display:grid;grid-template-columns:1fr auto 1fr;gap:1vw;font-size:clamp(13px,1.2vw,18px);
+    letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;text-align:center}
+  /* curiosity */
+  .vs{display:grid;grid-template-columns:1fr auto 1fr;gap:2vw;align-items:stretch;margin-top:5vh}
+  .vs .or{align-self:center;font-size:clamp(22px,2.4vw,36px);font-weight:800;color:var(--accent)}
+  .vs .card.hl{border-color:var(--accent);background:var(--accent-soft)}
+  /* graph */
+  .graph svg{width:100%;height:auto;max-height:62vh}
+  /* flow */
+  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2vw;margin-top:3vh;position:relative}
+  .step{background:var(--bg2);border:2px solid var(--line);border-radius:16px;padding:1.6vh 1.1vw;position:relative}
+  .step .n{display:inline-flex;width:1.7em;height:1.7em;border-radius:50%;background:var(--accent);color:#fff;
+    align-items:center;justify-content:center;font-weight:800;font-size:clamp(14px,1.2vw,18px);margin-bottom:.8vh}
+  .step h3{font-size:clamp(17px,1.6vw,25px);color:var(--navy);line-height:1.2}
+  .step p{font-size:clamp(14px,1.2vw,19px);color:var(--muted);margin-top:.5vh;line-height:1.3}
+  .step:not(:last-child)::after{content:"→";position:absolute;right:-1.05vw;top:50%;transform:translate(50%,-50%);
+    color:var(--accent);font-weight:800;font-size:clamp(18px,1.8vw,28px)}
+  .arch{margin-top:2.4vh;display:flex;justify-content:center}
+  .arch img{max-height:53vh;max-width:100%;border-radius:14px;border:2px solid var(--line);background:#fff;cursor:zoom-in}
+  .lightbox{position:fixed;inset:0;background:rgba(10,18,36,.92);display:none;align-items:center;justify-content:center;z-index:50;cursor:zoom-out}
+  .lightbox.on{display:flex}
+  .lightbox img{max-width:96vw;max-height:94vh;border-radius:10px;background:#fff}
+  /* chrome */
+  .counter{position:fixed;right:2.4vw;bottom:2.6vh;font-size:clamp(13px,1.1vw,17px);color:var(--muted);
+    font-variant-numeric:tabular-nums;letter-spacing:.06em;z-index:10}
+  .progress{position:fixed;left:0;bottom:0;height:5px;background:var(--accent);transition:width .45s ease;z-index:10}
+  .hint{position:fixed;left:2.4vw;bottom:2.6vh;font-size:clamp(12px,1vw,15px);color:#8a93a6;z-index:10;transition:opacity .6s}
+  .title-bg{position:absolute;right:-6vw;top:50%;transform:translateY(-50%);width:46vw;height:46vw;border-radius:50%;
+    background:radial-gradient(circle at 40% 40%, #e3f1ef 0%, rgba(227,241,239,0) 70%);z-index:-1}
+  .s2{grid-template-columns:1fr 1fr;gap:3.5vw;align-items:center}
+  .stack{display:grid;gap:1.4vh;margin-top:2.6vh}
+  .stack .card{padding:1.6vh 1.6vw;border-radius:16px}
+  .stack .card h3{margin-bottom:.3vh}
+  .panel{background:var(--bg2);border:2px solid var(--line);border-left:8px solid var(--warm);border-radius:20px;padding:3vh 2vw}
+  .panel-h{font-size:clamp(14px,1.3vw,20px);letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--warm);margin-bottom:1.8vh}
+  .plist{list-style:none;display:grid;gap:1.7vh}
+  .plist li{font-size:clamp(16px,1.5vw,23px);line-height:1.36;color:var(--muted);padding-left:1.2em;position:relative}
+  .plist li::before{content:"";position:absolute;left:0;top:.5em;width:.5em;height:.5em;border-radius:50%;background:var(--warm)}
+  .plist b{color:var(--ink)}
+  .note.ob{max-width:none;border-left-color:var(--accent);background:var(--accent-soft);color:var(--muted)}
+  .note.ob b{color:var(--navy)}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- 1 -->
+  <section class="slide active">
+    <div class="title-bg"></div>
+    <div class="eyebrow">An intro · multi-AI sync, second brain, knowledge graphs</div>
+    <h1>You use more than one AI.</h1>
+    <p class="lede">And each one keeps <b>its own memory</b>, so what one learns about you stays with that one.</p>
+    <div class="chips">
+      <span class="chip">ChatGPT</span><span class="chip">Claude</span><span class="chip">Gemini</span>
+      <span class="chip">Muse</span><span class="chip">Grok</span><span class="chip">Perplexity</span><span class="chip">…</span>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide">
+    <div class="split s2">
+      <div>
+        <div class="eyebrow">01 · Sync friction</div>
+        <h2 style="font-size:clamp(32px,4vw,62px)">Your context doesn't travel with you.</h2>
+        <p class="lede" style="margin-top:2.2vh">Memory lives in each <b>app</b>, not in the model. Other apps only see it when you carry it over:</p>
+        <div class="stack">
+          <div class="card"><h3><span class="tag">a</span>Short handoffs</h3><p>Paste a brief summary into the next tool.</p></div>
+          <div class="card"><h3><span class="tag">b</span>Second opinion</h3><p>Run the same prompt somewhere else.</p></div>
+          <div class="card"><h3><span class="tag">c</span>Own the store</h3><p>Notes, a graph, or a Mem0-class layer that you wire to each assistant.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-h">Example: Perplexity</div>
+        <ul class="plist">
+          <li><b>Notes and Brain live in Perplexity, the product.</b> The model underneath can change, and the memory stays put.</li>
+          <li><b>Normal search uses one model</b>: Best/auto, or the one you pick.</li>
+          <li><b>Model Council (Max)</b> runs several models side by side, then a synthesizer shows where they agree, where they disagree, and what only one found.</li>
+          <li>You choose the lineup and shape the prompt. There's no public setting to weight models by topic.</li>
+          <li>Those model calls stay in Perplexity. They <b>don't appear</b> as conversations in your ChatGPT or Claude apps.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide">
+    <div class="split">
+      <div>
+        <div class="eyebrow">02 · Drift</div>
+        <h2>Same question. Different answers.</h2>
+        <ul class="lines">
+          <li>Ask two assistants, or the same agent twice, and the answers can drift apart.</li>
+          <li>Nothing is broken. Each one fills the gaps with its own context.</li>
+          <li>So the real question is: <b>which version do you trust?</b></li>
+        </ul>
+      </div>
+      <div class="answers" aria-hidden="true">
+        <div class="bubble q">"Summarize where our project stands."</div>
+        <div class="bubble"><span class="who">Assistant A</span>"On track. The vendor review is done."</div>
+        <div class="bubble"><span class="who">Assistant B</span>"Waiting on vendor sign-off before the next phase."</div>
+        <div class="bubble"><span class="who">Same agent, next day</span>"Two open risks: budget and timeline."</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide">
+    <div class="split">
+      <div>
+        <div class="eyebrow">03 · Wording</div>
+        <h2>The words you use shape what comes back.</h2>
+        <ul class="lines">
+          <li>Use non-standard wording and you can miss the details you needed.</li>
+          <li>Slang, team shorthand and industry terms often mean the same thing.</li>
+          <li>The context behind your words didn't come along.</li>
+        </ul>
+      </div>
+      <div class="words" aria-hidden="true">
+        <div class="wordhead"><span>What we say</span><span></span><span>What the field says</span></div>
+        <div class="wordrow"><div class="w alt">"the sugar test"</div><div class="arrow">≈</div><div class="w">HbA1c assay</div></div>
+        <div class="wordrow"><div class="w alt">"the batch log"</div><div class="arrow">≈</div><div class="w">Batch record</div></div>
+        <div class="wordrow"><div class="w alt">"the FDA packet"</div><div class="arrow">≈</div><div class="w">Regulatory submission</div></div>
+        <div class="wordrow"><div class="w alt">"side effect"</div><div class="arrow">≈</div><div class="w">Adverse event</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide">
+    <div class="eyebrow">04 · Curiosity</div>
+    <h2>Everyone's talking about a "second brain."</h2>
+    <p class="lede" style="max-width:48ch;margin-top:2.4vh">A second brain, a digital twin. What would make it work across every AI you use?</p>
+    <div class="vs" style="margin-top:3.5vh">
+      <div class="card"><h3>Better notes?</h3><p>More capture, more folders, more search. Useful, but every tool still reads your words its own way.</p></div>
+      <div class="or">or</div>
+      <div class="card hl"><h3>Shared meaning?</h3><p>Agreed terms and how they connect, so each assistant starts from the same understanding.</p></div>
+    </div>
+    <p class="note ob"><b>Where Obsidian fits:</b> durable Markdown you own, which you can connect through MCP, plugins or handoffs. It <b>doesn't auto-merge</b> with Perplexity Brain. The two work together when you bridge them on purpose. The best workflow, with ontology and governance on top, is still being researched.</p>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide">
+    <div class="split" style="grid-template-columns:1fr 1.05fr">
+      <div>
+        <div class="eyebrow">05 · Bridge · pharma labs (VTI approach)</div>
+        <h2 style="font-size:clamp(30px,3.9vw,60px)">Pharma labs deal with this at global scale.</h2>
+        <ul class="lines" style="gap:1.7vh">
+          <li>Labs get digitized, and systems spread across global orgs get integrated.</li>
+          <li>Processes run <b>10+ years</b>, with different local vocabularies, and still need clean regulator submissions.</li>
+          <li>The focus is the <b>meaning behind the words</b>: preferred terms, their many alternative names, and how they relate. That's a <b>knowledge graph</b>.</li>
+        </ul>
+      </div>
+      <div class="graph" aria-hidden="true">
+        <svg viewBox="0 0 560 440" xmlns="http://www.w3.org/2000/svg" font-family="Inter,Segoe UI,Arial,sans-serif">
+          <g stroke="#9fb8b4" stroke-width="2.5">
+            <line x1="280" y1="200" x2="110" y2="80"/><line x1="280" y1="200" x2="450" y2="80"/>
+            <line x1="280" y1="200" x2="90" y2="230"/><line x1="280" y1="200" x2="470" y2="250"/>
+            <line x1="280" y1="200" x2="180" y2="370"/><line x1="280" y1="200" x2="390" y2="380"/>
+          </g>
+          <g stroke="#13285a" stroke-width="2.5" stroke-dasharray="6 6"><line x1="470" y1="250" x2="390" y2="380"/></g>
+          <!-- preferred term -->
+          <rect x="175" y="168" width="210" height="64" rx="32" fill="#0f7c74"/>
+          <text x="280" y="196" fill="#fff" font-size="13" text-anchor="middle" font-weight="700" letter-spacing="1.5">PREFERRED TERM</text>
+          <text x="280" y="218" fill="#fff" font-size="19" text-anchor="middle" font-weight="800">Adverse event</text>
+          <!-- aliases -->
+          <g font-size="17" text-anchor="middle" fill="#3d4a63">
+            <rect x="35" y="58" width="150" height="44" rx="22" fill="#fff" stroke="#d9d4c9" stroke-width="2" stroke-dasharray="5 4"/><text x="110" y="86">"side effect"</text>
+            <rect x="380" y="58" width="140" height="44" rx="22" fill="#fff" stroke="#d9d4c9" stroke-width="2" stroke-dasharray="5 4"/><text x="450" y="86">"AE"</text>
+            <rect x="10" y="208" width="160" height="44" rx="22" fill="#fff" stroke="#d9d4c9" stroke-width="2" stroke-dasharray="5 4"/><text x="90" y="236">local name</text>
+          </g>
+          <!-- related concepts -->
+          <g font-size="17" text-anchor="middle" fill="#13285a" font-weight="700">
+            <rect x="395" y="228" width="150" height="44" rx="10" fill="#e3f1ef" stroke="#0f7c74" stroke-width="2"/><text x="470" y="256">Clinical study</text>
+            <rect x="95" y="348" width="170" height="44" rx="10" fill="#e3f1ef" stroke="#0f7c74" stroke-width="2"/><text x="180" y="376">Lab result</text>
+            <rect x="290" y="358" width="200" height="44" rx="10" fill="#e3f1ef" stroke="#0f7c74" stroke-width="2"/><text x="390" y="386">Regulatory filing</text>
+          </g>
+          <g font-size="16" fill="#3d4a63" font-weight="600">
+            <text x="20" y="30">- - alternative names (aliases)</text>
+            <text x="360" y="30">▭ related concepts</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide" style="justify-content:flex-start;padding-top:6vh">
+    <div class="eyebrow">06 · What's next</div>
+    <h2 style="max-width:none;font-size:clamp(30px,3.8vw,58px)">A personal brain that keeps your AIs on the same page.</h2>
+    <div class="flow">
+      <div class="step"><span class="n">1</span><h3>Handoff inbox</h3><p>Short notes from any AI chat land in one place.</p></div>
+      <div class="step"><span class="n">2</span><h3>Curation &amp; governance</h3><p>You and a helper bot decide what's kept and how it's named.</p></div>
+      <div class="step"><span class="n">3</span><h3>Git source of truth</h3><p>Human-readable Markdown plus RDF, versioned.</p></div>
+      <div class="step"><span class="n">4</span><h3>Living graph</h3><p>Seeds every agent, so threads stay consistent.</p></div>
+    </div>
+    <div class="arch"><img src="personal-brain-architecture.jpg" alt="Personal brain architecture: AI chats to handoff inbox to curation to living knowledge graph" id="archimg" title="Click to enlarge"></div>
+  </section>
+
+</div>
+
+<div class="lightbox" id="lightbox"><img src="personal-brain-architecture.jpg" alt="Personal brain architecture, enlarged"></div>
+<div class="hint" id="hint">← → / Space to navigate · F to toggle fullscreen</div>
+<div class="counter" id="counter">1 / 7</div>
+<div class="progress" id="progress"></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0, total=slides.length;
+  var counter=document.getElementById('counter'), progress=document.getElementById('progress');
+  var lb=document.getElementById('lightbox'), hint=document.getElementById('hint');
+  function fromHash(){var n=parseInt((location.hash||'').replace('#',''),10);return (n>=1&&n<=total)?n-1:0;}
+  function show(n){
+    i=Math.max(0,Math.min(total-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i);});
+    counter.textContent=(i+1)+' / '+total;
+    progress.style.width=((i+1)/total*100)+'%';
+    if(history.replaceState) history.replaceState(null,'','#'+(i+1));
+  }
+  function next(){show(i+1);} function prev(){show(i-1);}
+  document.addEventListener('keydown',function(e){
+    if(lb.classList.contains('on')){ if(e.key==='Escape'||e.key===' '||e.key==='Enter'){lb.classList.remove('on');e.preventDefault();} return; }
+    var k=e.key;
+    if(k==='ArrowRight'||k==='ArrowDown'||k===' '||k==='PageDown'||k==='Enter'){e.preventDefault();next();}
+    else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'||k==='Backspace'){e.preventDefault();prev();}
+    else if(k==='Home'){show(0);} else if(k==='End'){show(total-1);}
+    else if(k==='f'||k==='F'){ if(!document.fullscreenElement){document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();} else {document.exitFullscreen&&document.exitFullscreen();} }
+    hint.style.opacity='0';
+  });
+  document.getElementById('archimg').addEventListener('click',function(e){e.stopPropagation();lb.classList.add('on');});
+  lb.addEventListener('click',function(e){e.stopPropagation();lb.classList.remove('on');});
+  document.getElementById('deck').addEventListener('click',function(e){
+    if(e.shiftKey||e.button===2) prev(); else next(); hint.style.opacity='0';
+  });
+  document.addEventListener('contextmenu',function(e){e.preventDefault();prev();});
+  setTimeout(function(){hint.style.opacity='0';},6000);
+  show(fromHash());
+})();
+</script>
+</body>
+</html>

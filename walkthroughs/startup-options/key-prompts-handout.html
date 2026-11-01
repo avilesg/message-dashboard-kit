@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Key prompts: from WhatsApp to a Message tracker</title>
+<style>
+  :root{
+    --bg:#f6f4ef; --bg2:#ffffff; --ink:#0f1f3d; --muted:#3d4a63;
+    --accent:#0f7c74; --accent-soft:#e3f1ef; --navy:#13285a; --line:#d9d4c9;
+    --warm:#b5651d; --warm-soft:#fbf3ea;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Inter","Segoe UI","Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;line-height:1.45}
+  .page{max-width:1100px;margin:0 auto;padding:56px 40px 80px}
+  header{position:relative;margin-bottom:34px}
+  .eyebrow{font-size:18px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:14px}
+  h1{font-size:clamp(38px,5vw,60px);line-height:1.05;font-weight:800;letter-spacing:-.02em;color:var(--navy)}
+  .lede{font-size:clamp(19px,2vw,24px);color:var(--muted);margin-top:16px;max-width:52ch}
+  .lede b{color:var(--ink)}
+  .legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px;font-size:18px;color:var(--muted)}
+  .legend span{background:var(--bg2);border:2px solid var(--line);border-radius:999px;padding:6px 16px}
+  .fill{background:#fff2c9;color:#6b4a00;font-weight:800;border-radius:6px;padding:0 .3em;white-space:nowrap}
+  .note{margin:0 0 30px;border-left:6px solid var(--warm);background:var(--warm-soft);border-radius:0 14px 14px 0;
+    padding:16px 22px;font-size:20px;color:#4a3a2a}
+  .note b{color:#3a2a1a}
+  ol{list-style:none;display:grid;gap:22px;counter-reset:p}
+  li.p{background:var(--bg2);border:2px solid var(--line);border-radius:22px;padding:24px 28px 26px 96px;position:relative;
+    break-inside:avoid;page-break-inside:avoid}
+  li.p::before{counter-increment:p;content:counter(p);position:absolute;left:26px;top:24px;width:50px;height:50px;border-radius:14px;
+    background:var(--accent);color:#fff;font-weight:800;font-size:28px;display:flex;align-items:center;justify-content:center}
+  li.p.opt::before{background:var(--warm)}
+  .p h2{font-size:26px;color:var(--navy);font-weight:800;line-height:1.2}
+  .p h2 small{font-size:.68em;font-weight:600;color:var(--muted);margin-left:.4em}
+  .tmpl{display:inline-block;font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;
+    padding:3px 12px;margin-left:10px;vertical-align:middle;background:var(--accent-soft);color:var(--accent)}
+  .prompt{margin-top:12px;font-size:clamp(19px,1.9vw,23px);line-height:1.5;color:var(--ink);
+    background:#faf8f3;border:1px dashed var(--line);border-radius:14px;padding:14px 96px 14px 18px;position:relative}
+  .prompt code{font-family:"JetBrains Mono","SFMono-Regular",Consolas,monospace;font-size:.88em;color:var(--accent);word-break:break-all}
+  .copy{position:absolute;top:10px;right:10px;font:600 14px/1 inherit;font-family:inherit;color:var(--accent);background:var(--bg2);
+    border:2px solid var(--line);border-radius:10px;padding:7px 12px;cursor:pointer}
+  .copy:hover{border-color:var(--accent)}
+  .why{margin-top:10px;font-size:18px;color:var(--muted)}
+  footer{margin-top:34px;font-size:17px;color:var(--muted);border-top:2px solid var(--line);padding-top:16px}
+  footer code{color:var(--accent)}
+  @media print{
+    @page{size:letter portrait;margin:14mm}
+    body{background:#fff}
+    .page{padding:0;max-width:none}
+    .copy{display:none}
+    li.p{border-width:1.5px;padding:16px 18px 16px 76px}
+    li.p::before{left:16px;top:16px;width:42px;height:42px;font-size:24px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .prompt{font-size:16px;padding-right:18px} .p h2{font-size:21px} .why{font-size:14px}
+    h1{font-size:38px} .lede{font-size:17px} .note{font-size:15px} .legend{font-size:14px}
+    .fill,.note,.tmpl{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="eyebrow">Handout · Message dashboard kit</div>
+    <h1>Six prompts from WhatsApp to a Message tracker</h1>
+    <p class="lede">The prompts I used to get a <b>dashboard of my messages by topic</b>. Paste them in order into your Grok Bot chat.</p>
+    <div class="legend">
+      <span><span class="fill">CAPS</span> = fill in your own</span>
+      <span>Kit: <b>github.com/avilesg/message-dashboard-kit</b></span>
+    </div>
+  </header>
+
+  <p class="note"><b>Imported the Message Dashboard template (Option B)?</b> Its getting-started skill runs most of these steps for you (the ones tagged <span class="tmpl" style="margin-left:0">template runs this</span>). Keep this sheet anyway, as a handout and a <b>recovery checklist</b> if a step fails or you set up a new bot.</p>
+
+  <ol>
+    <li class="p"><h2>Load the kit <span class="tmpl">template runs this</span></h2>
+      <div class="prompt">Use <code>https://github.com/avilesg/message-dashboard-kit</code> as your starting point. Read README.md, docs/TUTORIAL.md, ontology/, scripts/, and prompts/. Don't fork or push anything. Keep my group ID, name, and any people lists in your memory only — never in a repo.</div>
+      <p class="why">Gives the bot the recipe. Your personal details stay in its memory.</p></li>
+
+    <li class="p"><h2>Install wacli <span class="tmpl">template runs this</span></h2>
+      <div class="prompt">Install wacli (<code>https://wacli.sh</code>) on your box computer, with its store in a private folder. Don't pair yet — tell me when you're ready to show a QR code.</div>
+      <p class="why">wacli is the WhatsApp linked-device tool the bot reads your messages through.</p></li>
+
+    <li class="p"><h2>Pair with WhatsApp <span class="tmpl">template runs this</span></h2>
+      <div class="prompt">Show me the wacli pairing QR. I'll scan it from WhatsApp &gt; Settings &gt; Linked devices &gt; Link a device. After pairing, run a full history sync, then list my groups so I can pick <span class="fill">MY GROUP NAME</span>. Remember its JID.</div>
+      <p class="why">Have your phone ready. The QR code expires quickly, so ask again if it does.</p></li>
+
+    <li class="p"><h2>Send lock <span class="tmpl">template runs this</span></h2>
+      <div class="prompt">Lock wacli to read-only: never send, react, type, or mark-read in any chat. Add a guard so any send command fails, and confirm the lock to me.</div>
+      <p class="why">A safety step: the bot can read, but it can never post as you.</p></li>
+
+    <li class="p"><h2>Build the tracker <small>the dashboard of messages by topic</small> <span class="tmpl">template runs this</span></h2>
+      <div class="prompt">Using the kit's scripts (classify_store.py, build_roster.py, build_messages_embed.py) and ontology/topics.share.json, build me a "Message tracker" Page for my group: Global and Custom tabs, a Phone roster tab, facet filters (topic, author, date, media), and threads grouped by topic, collapsed by default with counts. Keep outputs on your computer only.</div>
+      <p class="why">This is the payoff: your group's threads sorted by topic, with filters.</p></li>
+
+    <li class="p opt"><h2>Alerts <small>optional</small> <span class="tmpl">template asks</span></h2>
+      <div class="prompt">Optional: start from examples/notification_config.example.json and set up alerts for me — critical (instant), daily digest, weekly digest — sent only to my chat with you. Ask me for keywords and people to watch; keep them in your memory, not the repo.</div>
+      <p class="why">Alerts go only to your chat with the bot. Your keywords and names stay out of the repo.</p></li>
+    <li class="p"><h2>Back up your settings <small>repeat after changes</small></h2>
+      <div class="prompt">Write or update config/personal.json from what you remember about my setup (group label and JID, timezone, store path, priority people, keywords, custom topics, relationship/topic weights if any, alert and digest settings, notification config pointers). Preferences and config only: do NOT include WhatsApp messages, message store data, or media., using config/personal.example.json as the shape. Keep it gitignored and never commit it to the public kit. Then give me a downloadable copy named personal-config-backup-YYYY-MM-DD.json and tell me what changed since the last backup. Do not change the send lock: wacli stays read-only.</div>
+      <p class="why">If the bot computer is reset, upload this file to a new bot to restore your prefs. It holds settings only, not messages (a message-store backup is a separate, optional job). Keep it private (Drive or an encrypted note).</p></li>
+  </ol>
+
+  <footer>You own the WhatsApp archive and the dashboard. Only the recipe is shared. · Setup paths: see <code>startup-options.html</code></footer>
+</div>
+<script>
+document.querySelectorAll('.prompt').forEach(function(p){
+  var b=document.createElement('button');b.className='copy';b.textContent='Copy';
+  b.onclick=function(){var t=p.innerText.replace(/Copy$/,'').trim();
+    (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},1500)}).catch(function(){b.textContent='Select text'});};
+  p.appendChild(b);
+});
+</script>
+</body>
+</html>
