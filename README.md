@@ -16,6 +16,7 @@ A public repo for turning **your own** WhatsApp group-chat history into a **pers
 | `scripts/` | Generic CLIs: `classify_store.py`, `build_roster.py`, `build_messages_embed.py` (read-only on a wacli store) |
 | `prompts/` | Copy-paste prompts for your Grok Bot, in order |
 | `config/` | `personal.example.json` sample for local-clone users (your filled copy is gitignored) |
+| `walkthroughs/` | Zoom HTML decks: intro landing, capability overview, startup options |
 | `.gitignore` | Keeps your archive, media, and private settings out of git |
 
 ## Quick start (default — no git needed)
@@ -28,6 +29,17 @@ Clone, `cp config/personal.example.json config/personal.json`, fill it in, and r
 
 ## Ontology review
 Shared topics on git `main` (`ontology/`, freshness in `ontology/LAST_UPDATE`) and new topic candidates from your messages are proposed in bot chat before they apply. You agree or tweak. The two sections are **Core (from git)** and **Candidate (from messages)**. A pull request to this repo happens only if you ask. See `docs/ONTOLOGY-LAYERS.md` and `ontology_review` in `examples/notification_config.example.json`.
+
+## Walkthrough decks
+The Zoom slides are self-contained HTML in `walkthroughs/` in this repo (`avilesg/message-dashboard-kit`). From a git checkout, open a `.html` file in a browser (Chrome or Edge). Arrow keys, Space, or a click move between slides; press F for fullscreen. Home and End jump to the first and last slide. Adding `#N` to the URL opens slide N. Architecture JPGs stay in the same folder as the HTML that references them. PNG slide renders are not in the repo.
+
+| Folder | Open |
+|---|---|
+| `walkthroughs/intro-landing/` | `intro-landing-slides.html` |
+| `walkthroughs/capability-overview/` | `capability-overview.html` |
+| `walkthroughs/startup-options/` | `startup-options.html` and `key-prompts-handout.html` |
+
+Presenter notes are in `walkthroughs/README.md` and each folder's `README.txt`.
 
 ## Want a change?
 Ask for a capability; it's tested on a branch first and only merged if it stays generic (no group-specific or personal details). Or fork this repo yourself.

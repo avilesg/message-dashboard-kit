@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three ways to start a Message dashboard bot</title>
+<style>
+  :root{
+    --bg:#f6f4ef; --bg2:#ffffff; --ink:#0f1f3d; --muted:#3d4a63;
+    --accent:#0f7c74; --accent-soft:#e3f1ef; --navy:#13285a; --line:#d9d4c9;
+    --warm:#b5651d; --warm-soft:#fbf3ea;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:var(--bg);color:var(--ink);overflow:hidden;
+    font-family:"Inter","Segoe UI","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .deck{position:relative;width:100vw;height:100vh}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+    padding:6vh 8vw 9vh;opacity:0;visibility:hidden;transform:translateY(12px);
+    transition:opacity .45s ease, transform .45s ease, visibility .45s}
+  .slide.active{opacity:1;visibility:visible;transform:none}
+  .eyebrow{font-size:clamp(14px,1.5vw,22px);letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-bottom:2.4vh}
+  h1{font-size:clamp(40px,6vw,92px);line-height:1.04;font-weight:800;letter-spacing:-.02em;color:var(--navy);max-width:20ch}
+  h2{font-size:clamp(30px,3.9vw,60px);line-height:1.08;font-weight:800;letter-spacing:-.015em;color:var(--navy)}
+  .lede{font-size:clamp(20px,2.1vw,32px);line-height:1.4;color:var(--muted);margin-top:3vh;max-width:44ch}
+  .lede b{color:var(--ink)}
+  a{color:var(--accent);text-decoration:none;border-bottom:2px solid rgba(15,124,116,.3)}
+  .url{font-family:"JetBrains Mono","SFMono-Regular",Consolas,monospace;font-size:.85em;color:var(--accent);
+    background:var(--accent-soft);padding:.15em .45em;border-radius:8px;word-break:break-all}
+  .chips{display:flex;flex-wrap:wrap;gap:1.2vw;margin-top:5vh}
+  .chip{background:var(--bg2);border:2px solid var(--line);border-radius:999px;
+    padding:1.2vh 1.7vw;font-size:clamp(18px,1.8vw,28px);font-weight:700;color:var(--navy)}
+  .chip .l{display:inline-flex;width:1.6em;height:1.6em;border-radius:50%;background:var(--accent);color:#fff;
+    align-items:center;justify-content:center;font-weight:800;margin-right:.5em;font-size:.85em}
+  .chip small{font-weight:500;color:var(--muted);margin-left:.3em}
+  .title-bg{position:absolute;right:-6vw;top:50%;transform:translateY(-50%);width:46vw;height:46vw;border-radius:50%;
+    background:radial-gradient(circle at 40% 40%, #e3f1ef 0%, rgba(227,241,239,0) 70%);z-index:-1}
+  .opt-head{display:flex;align-items:center;gap:1.4vw}
+  .badge{flex:none;display:inline-flex;width:clamp(56px,5.4vw,84px);height:clamp(56px,5.4vw,84px);border-radius:22px;
+    background:var(--accent);color:#fff;align-items:center;justify-content:center;font-weight:800;font-size:clamp(30px,3.2vw,50px)}
+  .what{font-size:clamp(18px,1.8vw,27px);line-height:1.4;color:var(--muted);margin-top:2.4vh;max-width:70ch}
+  .what b{color:var(--ink)}
+  .pc{display:grid;grid-template-columns:1fr 1fr;gap:2vw;margin-top:3.6vh}
+  .box{background:var(--bg2);border:2px solid var(--line);border-radius:22px;padding:3vh 2vw}
+  .box.pro{border-top:8px solid var(--accent)}
+  .box.con{border-top:8px solid var(--warm)}
+  .box h3{font-size:clamp(15px,1.35vw,21px);letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:1.8vh}
+  .box.pro h3{color:var(--accent)} .box.con h3{color:var(--warm)}
+  .box ul{list-style:none;display:grid;gap:1.6vh}
+  .box li{font-size:clamp(17px,1.65vw,26px);line-height:1.35;color:var(--muted);padding-left:1.3em;position:relative}
+  .box li b{color:var(--ink)}
+  .box.pro li::before{content:"+";position:absolute;left:0;top:-.05em;font-weight:800;color:var(--accent)}
+  .box.con li::before{content:"–";position:absolute;left:0;top:-.05em;font-weight:800;color:var(--warm)}
+  .best{margin-top:2.6vh;font-size:clamp(16px,1.5vw,23px);color:var(--muted)}
+  .best b{color:var(--navy)}
+  /* table */
+  table{width:100%;border-collapse:separate;border-spacing:0;margin-top:3.4vh;background:var(--bg2);
+    border:2px solid var(--line);border-radius:20px;overflow:hidden}
+  th,td{text-align:left;vertical-align:top;padding:1.6vh 1.3vw;font-size:clamp(14px,1.35vw,21px);line-height:1.32;color:var(--muted);
+    border-bottom:1px solid var(--line)}
+  tr:last-child td{border-bottom:none}
+  th{background:var(--navy);color:#fff;font-size:clamp(15px,1.45vw,23px);font-weight:800}
+  th small{display:block;font-weight:500;opacity:.8;font-size:.72em;margin-top:.2em}
+  td.row{font-weight:800;color:var(--navy);width:15%;background:#faf8f3}
+  td b{color:var(--ink)}
+  .good{color:var(--accent);font-weight:800}
+  .meh{color:var(--warm);font-weight:800}
+  /* reminder */
+  .own{display:grid;grid-template-columns:1fr 1fr;gap:2vw;margin-top:4vh}
+  .card{background:var(--bg2);border:2px solid var(--line);border-radius:22px;padding:3vh 2vw}
+  .card.hl{border-color:var(--accent);background:var(--accent-soft)}
+  .card h3{font-size:clamp(20px,2vw,30px);color:var(--navy);margin-bottom:1.4vh}
+  .card ul{list-style:none;display:grid;gap:1.3vh}
+  .card li{font-size:clamp(17px,1.6vw,25px);line-height:1.35;color:var(--muted);padding-left:1.3em;position:relative}
+  .card li::before{content:"";position:absolute;left:0;top:.5em;width:.5em;height:.5em;border-radius:50%;background:var(--accent)}
+  .card li b{color:var(--ink)}
+  .note{margin-top:3.4vh;border-left:6px solid var(--warm);background:var(--warm-soft);border-radius:0 14px 14px 0;
+    padding:2vh 1.8vw;font-size:clamp(16px,1.5vw,23px);line-height:1.4;color:#4a3a2a}
+  .note b{color:#3a2a1a}
+  /* config grid */
+  .cfg{display:grid;grid-template-columns:repeat(5,1fr);gap:1.1vw;margin-top:3.2vh}
+  .cfg .c{background:var(--bg2);border:2px solid var(--line);border-top:6px solid var(--accent);border-radius:16px;padding:1.6vh 1vw 1.8vh}
+  .cfg .c.new{border-color:var(--accent);border-top-color:var(--warm);background:var(--accent-soft)}
+  .cfg .c.safe{border-top-color:var(--navy)}
+  .cfg h3{font-size:clamp(16px,1.42vw,23px);line-height:1.15;color:var(--navy);font-weight:800;margin-bottom:1vh;display:flex;gap:.45em;align-items:baseline}
+  .cfg h3 .n{flex:none;display:inline-flex;width:1.45em;height:1.45em;border-radius:50%;background:var(--accent);color:#fff;
+    align-items:center;justify-content:center;font-size:.78em}
+  .cfg .c.new h3 .n{background:var(--warm)}
+  .cfg .tag{font-size:.62em;letter-spacing:.1em;text-transform:uppercase;color:var(--warm);font-weight:800;margin-left:auto}
+  .cfg p{font-size:clamp(14px,1.18vw,19px);line-height:1.34;color:var(--muted)}
+  .cfg p+p{margin-top:.7vh}
+  .cfg b{color:var(--ink)}
+  .cfg code{font-family:"JetBrains Mono","SFMono-Regular",Consolas,monospace;font-size:.88em;color:var(--accent);background:var(--accent-soft);padding:0 .25em;border-radius:5px}
+  .cfg .c.new code{background:#fff}
+  .slide.dense{padding-top:4.5vh;padding-bottom:8vh}
+  .slide.dense .note{margin-top:2.4vh;font-size:clamp(14px,1.2vw,19px);padding:1.4vh 1.6vw}
+  /* chrome */
+  .counter{position:fixed;right:2.4vw;bottom:2.6vh;font-size:clamp(13px,1.1vw,17px);color:var(--muted);
+    font-variant-numeric:tabular-nums;letter-spacing:.06em;z-index:10}
+  .progress{position:fixed;left:0;bottom:0;height:5px;background:var(--accent);transition:width .45s ease;z-index:10}
+  .hint{position:fixed;left:2.4vw;bottom:2.6vh;font-size:clamp(12px,1vw,15px);color:#8a93a6;z-index:10;transition:opacity .6s}
+  @media print{
+    @page{size:landscape;margin:0}
+    html,body{overflow:visible;height:auto}
+    .deck{height:auto}
+    .slide{position:relative;opacity:1;visibility:visible;transform:none;height:100vh;page-break-after:always;break-after:page}
+    .counter,.progress,.hint{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- 1 -->
+  <section class="slide active">
+    <div class="title-bg"></div>
+    <div class="eyebrow">Add-on · Setup paths</div>
+    <h1>Three ways to start a Message dashboard bot</h1>
+    <p class="lede">Same recipe underneath. Pick the start that fits <b>how hands-on you want to be</b>.</p>
+    <div class="chips">
+      <span class="chip"><span class="l">A</span>New bot + git kit</span>
+      <span class="chip"><span class="l">B</span>Import the template<small>fastest</small></span>
+      <span class="chip"><span class="l">C</span>Fork for local config</span>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide">
+    <div class="opt-head"><span class="badge">A</span>
+      <div><div class="eyebrow" style="margin-bottom:.8vh">Option A</div><h2>New Grok Bot + point it at the git kit</h2></div></div>
+    <p class="what">Start a blank bot and tell it: <b>use</b> <span class="url">github.com/avilesg/message-dashboard-kit</span> <b>as your starting point.</b> It reads the README, tutorial, ontology, scripts and prompts.</p>
+    <div class="pc">
+      <div class="box pro"><h3>Pros</h3><ul>
+        <li><b>Versioned recipe:</b> every change is a commit you can see</li>
+        <li><b>Transparent updates:</b> pull the latest kit any time</li>
+        <li><b>Forkable</b> if you want your own variant</li>
+        <li>Local clone works well for <b>git-comfortable</b> people</li>
+      </ul></div>
+      <div class="box con"><h3>Cons</h3><ul>
+        <li>The bot still <b>learns the playbook from files</b></li>
+        <li>More <b>"read the kit"</b> time on day one</li>
+        <li>You type the setup prompts yourself (see handout)</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide">
+    <div class="opt-head"><span class="badge">B</span>
+      <div><div class="eyebrow" style="margin-bottom:.8vh">Option B · Shortest Zoom setup</div><h2>Import the Message Dashboard Grok Bot template</h2></div></div>
+    <p class="what">A <b>public template</b>. On the first chat, its <b>getting-started</b> skill asks for your <b>group name, timezone and alerts</b>, then walks you through pairing.</p>
+    <div class="pc">
+      <div class="box pro"><h3>Pros</h3><ul>
+        <li><b>Fastest first conversation:</b> no prompts to paste</li>
+        <li><b>Send-lock + wacli path</b> already known to the bot</li>
+        <li>Guided questions instead of a blank chat</li>
+      </ul></div>
+      <div class="box con"><h3>Cons</h3><ul>
+        <li><b>Template revisions are republished</b>, not git commits</li>
+        <li>Still uses the <b>same kit files</b> under the hood</li>
+        <li>Must stay <b>scrubbed of personal data</b> before sharing</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide">
+    <div class="opt-head"><span class="badge">C</span>
+      <div><div class="eyebrow" style="margin-bottom:.8vh">Option C</div><h2>Fork or clone the kit for local-only config</h2></div></div>
+    <p class="what">Keep your own copy. Your settings live in <span class="url">personal.json</span>, which is <b>gitignored</b>, so it never leaves your machine.</p>
+    <div class="pc">
+      <div class="box pro"><h3>Pros</h3><ul>
+        <li><b>Full control</b> on your machine</li>
+        <li>Change scripts, topics and ontology freely</li>
+        <li>Personal config never lands in a repo</li>
+        <li><b>Back up</b> personal.json or ask the bot for an export, so prefs survive a bot reset (settings only, not messages)</li>
+      </ul></div>
+      <div class="box con"><h3>Cons</h3><ul>
+        <li><b>You own git</b>: branches, merges, conflicts</li>
+        <li><b>You own updates</b>: pulling upstream fixes is on you</li>
+        <li>Most setup time of the three</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide">
+    <div class="eyebrow">Side by side</div>
+    <h2>A vs B vs C</h2>
+    <table>
+      <tr><th></th><th>A · New bot + git kit<small>point at the repo</small></th><th>B · Import template<small>getting-started skill</small></th><th>C · Fork / clone<small>personal.json gitignored</small></th></tr>
+      <tr><td class="row">Day-one speed</td><td><span class="meh">Medium</span> · bot reads the kit</td><td><span class="good">Fastest</span> · guided questions</td><td><span class="meh">Slowest</span> · you set it up</td></tr>
+      <tr><td class="row">Updates</td><td><span class="good">Git commits</span>, transparent</td><td>Template <b>republished</b></td><td><b>You pull</b> upstream</td></tr>
+      <tr><td class="row">Prefs backup</td><td colspan="3">All paths: ask the bot to export personal.json (prompt 7) and keep a private copy, so prefs survive if the bot computer is reset. Prefs/config only (people, keywords, weights, alerts), not messages; a message backup is a separate, optional job</td></tr>
+      <tr><td class="row">Control</td><td>Medium</td><td>Lowest (template defaults)</td><td><span class="good">Full</span></td></tr>
+      <tr><td class="row">Skill needed</td><td>Comfortable pasting prompts</td><td><span class="good">None</span>, answer questions</td><td>Git + local tooling</td></tr>
+      <tr><td class="row">Watch out for</td><td>More reading on day one</td><td>Keep it free of personal data</td><td>Merge conflicts, upkeep</td></tr>
+      <tr><td class="row">Best for</td><td>Want transparency</td><td><b>The Zoom walkthrough</b></td><td>Tinkerers</td></tr>
+    </table>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide">
+    <div class="eyebrow">Reminder</div>
+    <h2>Whichever path: <span style="color:var(--accent)">you</span> own your data. Only the recipe is shared.</h2>
+    <div class="own">
+      <div class="card hl"><h3>Yours, on your bot's computer</h3><ul>
+        <li>The <b>WhatsApp archive</b> (wacli store)</li>
+        <li>The <b>dashboard</b> and its outputs</li>
+      </ul></div>
+      <div class="card"><h3>Shared</h3><ul>
+        <li><b>Only the recipe</b>: kit files, scripts, topic ontology</li>
+        <li>No messages, no contacts, no personal config</li>
+      </ul></div>
+    </div>
+    <p class="note"><b>Back up personal.json:</b> ask the bot to export it and keep a private copy, so your prefs survive a bot reset. It holds settings only, not your messages.</p>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide dense">
+    <div class="eyebrow" style="margin-bottom:1.4vh">Settings</div>
+    <h2>What you can configure</h2>
+    <div class="cfg">
+      <div class="c"><h3><span class="n">1</span>Group &amp; store</h3>
+        <p><b>Group label</b>, <b>chat JID</b>, your <b>timezone</b>, and the <b>wacli store path</b> on the bot's computer.</p></div>
+      <div class="c"><h3><span class="n">2</span>Priority people</h3>
+        <p>Who gets <b>near-real-time attention</b> when they post.</p></div>
+      <div class="c"><h3><span class="n">3</span>Keywords / buy-box</h3>
+        <p>Words and asks that <b>should alert you</b>, e.g. a deal that fits your buy-box.</p></div>
+      <div class="c"><h3><span class="n">4</span>Notify levels</h3>
+        <p><b>Critical</b> · <b>daily digest</b> · <b>weekly</b> · <b>mute</b>, per topic.</p><p>Plus <b>quiet hours</b>.</p></div>
+      <div class="c"><h3><span class="n">5</span>Ontology layers</h3>
+        <p><b>Shared core</b>: <code>ontology/</code> on git <code>main</code> of avilesg/message-dashboard-kit.</p><p><b>Personal extension</b>: local, gitignored.</p></div>
+      <div class="c new"><h3><span class="n">6</span>Ontology review<span class="tag">New</span></h3>
+        <p>Bot chat flags <b>(A) new core topics</b> from git vs <b>(B) candidates</b> from new messages.</p><p>You <b>agree or suggest a tweak</b> before it applies. Candidates go to <b>personal</b>; a core git PR only if you ask.</p></div>
+      <div class="c"><h3><span class="n">7</span>Ontology freshness</h3>
+        <p><code>ontology/LAST_UPDATE</code> in the repo folder. The gap job checks it <b>before assessing new topics</b>.</p></div>
+      <div class="c"><h3><span class="n">8</span>Prefs backup</h3>
+        <p>Export <code>personal.json</code> and keep a private copy. <b>Settings only, not messages.</b></p></div>
+      <div class="c safe"><h3><span class="n">9</span>Safety</h3>
+        <p>WhatsApp is <b>read-only</b>. The <b>send lock</b> stays on.</p></div>
+      <div class="c"><h3><span class="n">10</span>Optional delivery</h3>
+        <p><b>Slack or email</b> alerts can be added later. Bot chat is the default.</p></div>
+    </div>
+    <p class="note"><b>Where settings live:</b> your personal config + notification config. The template seeds the defaults; the shared ontology and scripts stay on git <b>main</b>.</p>
+  </section>
+
+</div>
+
+<div class="hint" id="hint">← → / Space to navigate · F to toggle fullscreen</div>
+<div class="counter" id="counter">1 / 7</div>
+<div class="progress" id="progress"></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0, total=slides.length;
+  var counter=document.getElementById('counter'), progress=document.getElementById('progress'), hint=document.getElementById('hint');
+  function fromHash(){var n=parseInt((location.hash||'').replace('#',''),10);return (n>=1&&n<=total)?n-1:0;}
+  function show(n){
+    i=Math.max(0,Math.min(total-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i);});
+    counter.textContent=(i+1)+' / '+total;
+    progress.style.width=((i+1)/total*100)+'%';
+    if(history.replaceState) history.replaceState(null,'','#'+(i+1));
+  }
+  function next(){show(i+1);} function prev(){show(i-1);}
+  document.addEventListener('keydown',function(e){
+    var k=e.key;
+    if(k==='ArrowRight'||k==='ArrowDown'||k===' '||k==='PageDown'||k==='Enter'){e.preventDefault();next();}
+    else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'||k==='Backspace'){e.preventDefault();prev();}
+    else if(k==='Home'){show(0);} else if(k==='End'){show(total-1);}
+    else if(k==='f'||k==='F'){ if(!document.fullscreenElement){document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();} else {document.exitFullscreen&&document.exitFullscreen();} }
+    hint.style.opacity='0';
+  });
+  document.getElementById('deck').addEventListener('click',function(e){
+    if(e.target.closest('a')) return;
+    if(e.shiftKey) prev(); else next(); hint.style.opacity='0';
+  });
+  document.addEventListener('contextmenu',function(e){e.preventDefault();prev();});
+  setTimeout(function(){hint.style.opacity='0';},6000);
+  show(fromHash());
+})();
+</script>
+</body>
+</html>
