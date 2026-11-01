@@ -31,3 +31,6 @@ Ask for a capability; it's tested on a branch first and only merged if it stays 
 - Your archive stays on your machine / bot computer.
 - The dashboard is **read-only** to WhatsApp: the bot never sends, types, or reacts in the group.
 - Don't republish group content.
+
+## Back up your customizations
+Your personal settings (`config/personal.json`, `*.local.json`) are gitignored and live only on your bot computer. If it is reset they are gone. See [config/BACKUP.md](config/BACKUP.md) and prompt `prompts/07-backup-personal-config.md`.

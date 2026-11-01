@@ -1,8 +1,12 @@
 {
-  "_note": "Copy to config/personal.json (gitignored) and fill in. Never commit the filled copy.",
+  "_note": "Copy to config/personal.json (gitignored) and fill in. Never commit the filled copy. Back it up: see config/BACKUP.md.",
+  "group_label": "YOUR GROUP NAME",
   "chat_jid": "YOUR_GROUP_JID@g.us",
+  "timezone": "America/New_York",
   "store_path": "/path/to/your/wacli/wacli.db",
   "self_label": "You",
-  "priority_people": ["Person One", "Person Two"],
+  "priority_people": [],
+  "keywords": [],
+  "custom_topics": [],
   "notify_overrides_note": "Put your real alert settings in config/notification_config.local.json (gitignored), based on examples/notification_config.example.json."
 }
