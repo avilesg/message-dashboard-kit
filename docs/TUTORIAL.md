@@ -23,7 +23,7 @@ Time: about 20–40 minutes the first time.
 ## 3b. Default setup: a new Grok Bot pointed at this repo
 1. In Grok Bot, create a **new bot** and name it something like **Message tracker**.
 2. Paste the prompt in `prompts/01-load-kit.md`. It tells the bot to use `https://github.com/avilesg/message-dashboard-kit` as its starting point.
-3. You do **not** need to clone, fork, or create a GitHub repo. The bot reads the kit and keeps your settings in its own memory.
+3. You do **not** need to clone, fork, or create a GitHub repo. The bot reads this repo and keeps your settings in its own memory.
 4. Continue with the prompts in `prompts/` (02 → 06), which match Path A below.
 
 **Advanced (optional):** if you know git and want everything on your own machine, clone the repo, copy `config/personal.example.json` to `config/personal.json`, and run `scripts/` locally (see `config/README.md`). Your personal files are gitignored.
@@ -49,10 +49,13 @@ Use when you can't add a linked device, have an older phone, or want a one-shot 
 Limits: one-shot (re-export for updates), no reactions, media in big exports may be missing or expired, quote/reply links are weaker.
 
 ## 6. Topics (ontology)
-- Copy `ontology/topics.share.json` and `ontology/entities.share.json` from this repo.
+- Copy `ontology/topics.share.json` and `ontology/entities.share.json` from this repo. Check `ontology/LAST_UPDATE` on git `main` so the core copy is current.
 - Rename labels or add keywords any time — just ask your bot.
 - Keep private priorities (people, your keywords) out of shared files.
-- Two layers: the kit's **core** topics plus your **personal extension** (in your prefs). New terms default to personal; the bot only proposes core additions with your OK. See `ONTOLOGY-LAYERS.md` and prompt 08.
+- Two layers: this repo's **core** topics plus your **personal extension** (in your prefs). New terms default to personal; the bot only proposes core additions with your OK. See `ONTOLOGY-LAYERS.md` and prompt 08.
+
+## 6b. Ontology review
+Before a gap assessment, the bot compares `ontology/LAST_UPDATE` on git `main` and refreshes `ontology/` when that date is newer. It then messages you in bot chat with **Core (from git)** and **Candidate (from messages)**. Nothing is applied until you agree or suggest a tweak. A git pull request for a core candidate happens only if you ask. See `docs/ONTOLOGY-LAYERS.md`.
 
 ## 7. Alerts (optional)
 - **Critical** — ping me now (priority person posts, someone names me, an ask matches my interests).

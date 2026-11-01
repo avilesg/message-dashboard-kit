@@ -1,4 +1,4 @@
-"""Shared helpers for the kit scripts. Read-only access to a wacli SQLite store."""
+"""Shared helpers for the repo scripts. Read-only access to a wacli SQLite store."""
 import json, os, re, sqlite3
 
 PH_JID = "YOUR_GROUP_JID@g.us"

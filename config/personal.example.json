@@ -12,5 +12,10 @@
   "topic_weights": {},
   "relationship_weights": {},
   "ontology_extension_note": "Personal ontology layer, merged with ontology/*.share.json at classify time. Optional larger overlay: config/ontology.personal.json (gitignored). See docs/ONTOLOGY-LAYERS.md.",
-  "notify_overrides_note": "Put your real alert settings in config/notification_config.local.json (gitignored), based on examples/notification_config.example.json."
+  "notify_overrides_note": "Put your real alert settings in config/notification_config.local.json (gitignored), based on examples/notification_config.example.json.",
+  "ontology_review": {
+    "enabled": true,
+    "require_owner_agree_before_apply": true,
+    "_note": "Detail lives in ontology_review in your notification config (examples/notification_config.example.json)."
+  }
 }
