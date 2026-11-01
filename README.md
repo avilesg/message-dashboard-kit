@@ -9,6 +9,7 @@ A starter kit for turning **your own** WhatsApp group-chat history into a **pers
 |---|---|
 | `docs/TUTORIAL.md` | Step-by-step setup for non-technical users |
 | `ontology/topics.share.json` | Shared topic vocabulary (areas → topics → keywords) |
+| `docs/ONTOLOGY-LAYERS.md` | Core vs personal ontology layers and gap triage |
 | `ontology/entities.share.json` | Upper ontology: message types, facets, relationships |
 | `examples/notification_config.example.json` | Placeholder alert settings — copy and edit privately |
 | `scripts/` | Generic CLIs: `classify_store.py`, `build_roster.py`, `build_messages_embed.py` (read-only on a wacli store) |
