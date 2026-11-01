@@ -18,3 +18,18 @@ analysis/
 *amber*
 *.env
 secrets*
+
+# Local personal config & outputs (kit v2)
+config/personal.json
+config/*.local.json
+*.local.json
+*.live.json
+out/
+wacli*
+!prompts/wacli*.md
+thumbs/
+*_thumbs*.json
+classification_summary*.json
+roster*.json
+__pycache__/
+*.pyc

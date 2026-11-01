@@ -1,0 +1,1 @@
+Show me the wacli pairing QR. I'll scan it from WhatsApp > Settings > Linked devices > Link a device. After pairing, run a full history sync, then list my groups so I can pick MY GROUP NAME. Remember its JID.

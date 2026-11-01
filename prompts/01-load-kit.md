@@ -1,0 +1,1 @@
+Use https://github.com/avilesg/message-dashboard-kit as your starting point. Read README.md, docs/TUTORIAL.md, ontology/, scripts/, and prompts/. Don't fork or push anything. Keep my group ID, name, and any people lists in your memory only — never in a repo.

@@ -20,6 +20,14 @@ Time: about 20–40 minutes the first time.
 - 20–40 minutes, and willingness to scan a QR code once.
 - This repo's link.
 
+## 3b. Default setup: a new Grok Bot pointed at this repo
+1. In Grok Bot, create a **new bot** and name it something like **Message tracker**.
+2. Paste the prompt in `prompts/01-load-kit.md`. It tells the bot to use `https://github.com/avilesg/message-dashboard-kit` as its starting point.
+3. You do **not** need to clone, fork, or create a GitHub repo. The bot reads the kit and keeps your settings in its own memory.
+4. Continue with the prompts in `prompts/` (02 → 06), which match Path A below.
+
+**Advanced (optional):** if you know git and want everything on your own machine, clone the repo, copy `config/personal.example.json` to `config/personal.json`, and run `scripts/` locally (see `config/README.md`). Your personal files are gitignored.
+
 ## 4. Path A (recommended): wacli
 **wacli** is a small command-line tool that connects to WhatsApp as a linked device (like WhatsApp Web) and saves messages to a local folder. Docs: https://wacli.sh
 

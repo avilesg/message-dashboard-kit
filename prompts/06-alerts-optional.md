@@ -1,0 +1,1 @@
+Optional: start from examples/notification_config.example.json and set up alerts for me — critical (instant), daily digest, weekly digest — sent only to my chat with you. Ask me for keywords and people to watch; keep them in your memory, not the repo.

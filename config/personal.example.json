@@ -1,0 +1,8 @@
+{
+  "_note": "Copy to config/personal.json (gitignored) and fill in. Never commit the filled copy.",
+  "chat_jid": "YOUR_GROUP_JID@g.us",
+  "store_path": "/path/to/your/wacli/wacli.db",
+  "self_label": "You",
+  "priority_people": ["Person One", "Person Two"],
+  "notify_overrides_note": "Put your real alert settings in config/notification_config.local.json (gitignored), based on examples/notification_config.example.json."
+}
