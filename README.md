@@ -9,6 +9,7 @@ A starter kit for turning **your own** WhatsApp group-chat history into a **pers
 |---|---|
 | `docs/TUTORIAL.md` | Step-by-step setup for non-technical users |
 | `ontology/topics.share.json` | Shared topic vocabulary (areas → topics → keywords) |
+| `docs/ONTOLOGY-LAYERS.md` | Core vs personal ontology layers and gap triage |
 | `ontology/entities.share.json` | Upper ontology: message types, facets, relationships |
 | `examples/notification_config.example.json` | Placeholder alert settings — copy and edit privately |
 | `scripts/` | Generic CLIs: `classify_store.py`, `build_roster.py`, `build_messages_embed.py` (read-only on a wacli store) |
@@ -31,3 +32,6 @@ Ask for a capability; it's tested on a branch first and only merged if it stays 
 - Your archive stays on your machine / bot computer.
 - The dashboard is **read-only** to WhatsApp: the bot never sends, types, or reacts in the group.
 - Don't republish group content.
+
+## Back up your customizations
+Your personal settings (`config/personal.json`, `*.local.json`) are gitignored and live only on your bot computer. If it is reset they are gone. The backup covers preferences and config only (people, keywords, weights, alerts, timezone), not your WhatsApp messages; a message-store backup is a separate, optional job. See [config/BACKUP.md](config/BACKUP.md) and prompt `prompts/07-backup-personal-config.md`.

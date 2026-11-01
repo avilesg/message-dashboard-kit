@@ -52,6 +52,7 @@ Limits: one-shot (re-export for updates), no reactions, media in big exports may
 - Copy `ontology/topics.share.json` and `ontology/entities.share.json` from this repo.
 - Rename labels or add keywords any time — just ask your bot.
 - Keep private priorities (people, your keywords) out of shared files.
+- Two layers: the kit's **core** topics plus your **personal extension** (in your prefs). New terms default to personal; the bot only proposes core additions with your OK. See `ONTOLOGY-LAYERS.md` and prompt 08.
 
 ## 7. Alerts (optional)
 - **Critical** — ping me now (priority person posts, someone names me, an ask matches my interests).
