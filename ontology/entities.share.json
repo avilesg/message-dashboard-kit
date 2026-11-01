@@ -1,0 +1,508 @@
+{
+  "version": "v3.1-draft",
+  "status": "shared upper ontology (draft)",
+  "facets": {
+    "communication_motive": "Communication motive",
+    "asset_class": "Asset class",
+    "deal_mechanics": "Deal mechanics",
+    "deal_pipeline_object": "Deal / lead / opportunity",
+    "service_offering": "Service",
+    "tech_tools": "Tech & tools",
+    "community_group": "Community group",
+    "help_lifecycle": "Help lifecycle",
+    "engagement_cue": "Engagement cue",
+    "event_venue": "Event / venue"
+  },
+  "entities": [
+    {
+      "id": "motive_ask",
+      "facet": "communication_motive",
+      "definition": "Asks the group for info, help, contact, or capital",
+      "alt_labels": [
+        "anyone have",
+        "looking for",
+        "does anyone know"
+      ]
+    },
+    {
+      "id": "motive_offer",
+      "facet": "communication_motive",
+      "definition": "Offers help, a contact, a service, or deal flow",
+      "alt_labels": [
+        "I can help",
+        "happy to help",
+        "I have"
+      ]
+    },
+    {
+      "id": "motive_announce",
+      "facet": "communication_motive",
+      "definition": "Event / admin / schedule notice",
+      "alt_labels": [
+        "zoom",
+        "reminder",
+        "tonight"
+      ]
+    },
+    {
+      "id": "motive_win_gratitude",
+      "facet": "communication_motive",
+      "definition": "Win, closing shout-out, or thanks",
+      "alt_labels": [
+        "closed",
+        "thank you",
+        "grateful"
+      ]
+    },
+    {
+      "id": "motive_intro",
+      "facet": "communication_motive",
+      "definition": "Self-introduction / bio",
+      "alt_labels": [
+        "hi everyone",
+        "my name is"
+      ]
+    },
+    {
+      "id": "offline_continuation",
+      "facet": "communication_motive",
+      "definition": "Cue that a thread moves to private channel",
+      "alt_labels": [
+        "DM me",
+        "hit me up",
+        "message me",
+        "I'll text you",
+        "sent you a DM",
+        "take this offline"
+      ]
+    },
+    {
+      "id": "asset_multifamily",
+      "facet": "asset_class",
+      "definition": "5+ unit residential",
+      "alt_labels": [
+        "MF",
+        "apartments",
+        "units"
+      ]
+    },
+    {
+      "id": "asset_str",
+      "facet": "asset_class",
+      "definition": "Short-term rental",
+      "alt_labels": [
+        "Airbnb",
+        "STR",
+        "VRBO"
+      ]
+    },
+    {
+      "id": "asset_rv_mhp",
+      "facet": "asset_class",
+      "definition": "RV parks / mobile home parks",
+      "alt_labels": [
+        "RV park",
+        "MHP",
+        "campground"
+      ]
+    },
+    {
+      "id": "asset_coliving",
+      "facet": "asset_class",
+      "definition": "Room-by-room rental",
+      "alt_labels": [
+        "PadSplit",
+        "co-living",
+        "rent by room"
+      ]
+    },
+    {
+      "id": "asset_special_housing",
+      "facet": "asset_class",
+      "definition": "Veteran/sober/assisted/ADA housing",
+      "alt_labels": [
+        "veteran housing",
+        "sober living",
+        "assisted living"
+      ]
+    },
+    {
+      "id": "asset_sfr_flip",
+      "facet": "asset_class",
+      "definition": "Single-family / fix & flip",
+      "alt_labels": [
+        "SFR",
+        "flip",
+        "duplex"
+      ]
+    },
+    {
+      "id": "asset_land",
+      "facet": "asset_class",
+      "definition": "Raw land / lots",
+      "alt_labels": [
+        "acres",
+        "lot"
+      ]
+    },
+    {
+      "id": "asset_hospitality",
+      "facet": "asset_class",
+      "definition": "Hotels/motels",
+      "alt_labels": [
+        "hotel",
+        "motel"
+      ]
+    },
+    {
+      "id": "asset_self_storage",
+      "facet": "asset_class",
+      "definition": "Self storage",
+      "alt_labels": [
+        "storage"
+      ]
+    },
+    {
+      "id": "asset_ops_business",
+      "facet": "asset_class",
+      "definition": "Operating business",
+      "alt_labels": [
+        "business acquisition"
+      ]
+    },
+    {
+      "id": "dm_creative_finance",
+      "facet": "deal_mechanics",
+      "definition": "Creative-finance strategy/method (playbook, not software)",
+      "alt_labels": [
+        "SubTo",
+        "Morby Method",
+        "seller finance",
+        "wrap",
+        "lease option"
+      ]
+    },
+    {
+      "id": "dm_deals_jv",
+      "facet": "deal_mechanics",
+      "definition": "Deal structuring / JV / stages LOI\u2192UC\u2192EMD\u2192assignment",
+      "alt_labels": [
+        "JV",
+        "LOI",
+        "under contract",
+        "EMD",
+        "assignment"
+      ]
+    },
+    {
+      "id": "dm_capital",
+      "facet": "deal_mechanics",
+      "definition": "Capital raising / lending / DSCR / POF",
+      "alt_labels": [
+        "DSCR",
+        "POF",
+        "private money",
+        "gap funding"
+      ]
+    },
+    {
+      "id": "dm_closing",
+      "facet": "deal_mechanics",
+      "definition": "Title, escrow, closing",
+      "alt_labels": [
+        "title",
+        "escrow",
+        "closed"
+      ]
+    },
+    {
+      "id": "deal",
+      "facet": "deal_pipeline_object",
+      "definition": "Specific asset in motion: under contract / closing",
+      "alt_labels": [
+        "deal",
+        "under contract",
+        "UC"
+      ],
+      "status": "provisional_from_chat"
+    },
+    {
+      "id": "lead",
+      "facet": "deal_pipeline_object",
+      "definition": "Seller/buyer contact or property tip not yet a deal",
+      "alt_labels": [
+        "lead",
+        "seller lead",
+        "got a lead"
+      ],
+      "status": "provisional_from_chat"
+    },
+    {
+      "id": "opportunity",
+      "facet": "deal_pipeline_object",
+      "definition": "Shared deal flow or possible fit not yet owned; often JV/partnership framing",
+      "alt_labels": [
+        "opportunity",
+        "JV opportunity"
+      ],
+      "status": "provisional_from_chat"
+    },
+    {
+      "id": "service",
+      "facet": "service_offering",
+      "definition": "Ongoing paid/offered service (TC, lending as service, coaching, PM) \u2014 NOT a deal subtype",
+      "alt_labels": [
+        "TC services",
+        "property management",
+        "coaching",
+        "lender"
+      ],
+      "status": "provisional_from_chat"
+    },
+    {
+      "id": "tool_llm",
+      "facet": "tech_tools",
+      "definition": "General LLMs",
+      "alt_labels": [
+        "ChatGPT",
+        "Claude",
+        "Grok"
+      ]
+    },
+    {
+      "id": "tool_agents_malli",
+      "facet": "tech_tools",
+      "definition": "Agents / Malli / Hive Mind",
+      "alt_labels": [
+        "Malli",
+        "Hive",
+        "agent"
+      ]
+    },
+    {
+      "id": "tool_deal_software",
+      "facet": "tech_tools",
+      "definition": "Software implementing creative-finance workflows",
+      "alt_labels": [
+        "Deal Sauce"
+      ]
+    },
+    {
+      "id": "tool_marketing",
+      "facet": "tech_tools",
+      "definition": "Marketing / CRM tech",
+      "alt_labels": [
+        "CRM",
+        "skip trace"
+      ]
+    },
+    {
+      "id": "community_oc",
+      "facet": "community_group",
+      "definition": "Owners Club \u2014 only annual renewing-fee community",
+      "alt_labels": [
+        "OC",
+        "Owners Club"
+      ]
+    },
+    {
+      "id": "community_subto",
+      "facet": "community_group",
+      "definition": "SubTo \u2014 lifetime",
+      "alt_labels": [
+        "SubTo",
+        "Sub2"
+      ]
+    },
+    {
+      "id": "community_gator",
+      "facet": "community_group",
+      "definition": "Gator \u2014 lifetime (lending)",
+      "alt_labels": [
+        "Gator",
+        "Gator lending"
+      ]
+    },
+    {
+      "id": "community_zero_down",
+      "facet": "community_group",
+      "definition": "Zero Down \u2014 lifetime",
+      "alt_labels": [
+        "Zero Down",
+        "ZeroDown",
+        "ZD"
+      ]
+    },
+    {
+      "id": "community_tc",
+      "facet": "community_group",
+      "definition": "Transaction Coordinator \u2014 lifetime",
+      "alt_labels": [
+        "TC",
+        "Transaction Coordinator"
+      ]
+    },
+    {
+      "id": "help_requested",
+      "facet": "help_lifecycle",
+      "definition": "Public ask for help",
+      "alt_labels": [
+        "anyone have",
+        "looking for"
+      ],
+      "status": "tentative"
+    },
+    {
+      "id": "help_offered",
+      "facet": "help_lifecycle",
+      "definition": "Public offer in reply",
+      "alt_labels": [
+        "I can help",
+        "sent you a DM"
+      ],
+      "status": "tentative"
+    },
+    {
+      "id": "help_provided",
+      "facet": "help_lifecycle",
+      "definition": "Evidence help was delivered (thanks/close)",
+      "alt_labels": [
+        "thank you",
+        "grateful"
+      ],
+      "status": "tentative"
+    },
+    {
+      "id": "help_outstanding",
+      "facet": "help_lifecycle",
+      "definition": "DERIVED: requested, no offer/thanks within N days",
+      "alt_labels": [],
+      "status": "tentative"
+    },
+    {
+      "id": "mention_at",
+      "facet": "engagement_cue",
+      "definition": "@username mention of YourFirstName",
+      "alt_labels": [
+        "@YourFirstName"
+      ]
+    },
+    {
+      "id": "mention_full_name",
+      "facet": "engagement_cue",
+      "definition": "Full name without @ \u2014 high confidence, critical",
+      "alt_labels": [
+        "Your Full Name"
+      ]
+    },
+    {
+      "id": "mention_first_or_nick",
+      "facet": "engagement_cue",
+      "definition": "First name/nick \u2014 ambiguous, confirmation queue unless context",
+      "alt_labels": [
+        "YourFirstName",
+        "YourNick",
+        "Gab",
+        "Gabi"
+      ]
+    },
+    {
+      "id": "venue_zoom",
+      "facet": "event_venue",
+      "definition": "OC Zoom calls",
+      "alt_labels": [
+        "zoom",
+        "pod"
+      ]
+    },
+    {
+      "id": "venue_immersion",
+      "facet": "event_venue",
+      "definition": "In-person immersions",
+      "alt_labels": [
+        "immersion",
+        "summit"
+      ]
+    }
+  ],
+  "relationship_types": [
+    "posted_by(Message\u2192Member)",
+    "mentions(Message\u2192Member){match_span,confidence}",
+    "has_motive",
+    "about_asset_class",
+    "uses_deal_mechanics",
+    "financed_by(asset\u2192dm_capital)",
+    "references_pipeline_object",
+    "offers_service",
+    "uses_tool",
+    "implements(tool\u2192dm_creative_finance)",
+    "in_venue",
+    "matches_buy_box(Message\u2192BuyBox){score}",
+    "help_thread(Message\u2192HelpThread){role:request|offer|provided}",
+    "continues_offline",
+    "member_of(Member\u2192Community)",
+    "has_role",
+    "has_expertise",
+    "owns_buy_box"
+  ],
+  "help_thread_state_machine": {
+    "states": [
+      "requested",
+      "offered",
+      "provided",
+      "outstanding(derived)",
+      "stale"
+    ],
+    "rules": "requested\u2192offered on public reply/offer; \u2192provided on thanks/close; requested with no offer/thanks in N=7 days \u2192 outstanding; source: public WhatsApp text only, never DM content"
+  },
+  "member_schema": {
+    "member_id": "str",
+    "display_name": "str",
+    "tenure_in_oc": {
+      "first_seen": "date",
+      "newcomer": "bool (<90d)"
+    },
+    "roles": [
+      "educator",
+      "dealmaker",
+      "capital",
+      "operator_tc",
+      "ai_builder",
+      "connector"
+    ],
+    "community_groups": [
+      "community_*"
+    ],
+    "expertise": [
+      "topic ids"
+    ],
+    "buy_box": {
+      "buy_box_id": "str",
+      "link": "url|null",
+      "keywords": [],
+      "asset_class": [],
+      "markets": [],
+      "price_range": "str",
+      "time_sensitive_until": "date|null"
+    },
+    "expertise_offered": [],
+    "priority_watch": "bool"
+  },
+  "message_metadata_for_hive": [
+    "buy_box_id",
+    "buy_box_match_score",
+    "asset_class",
+    "markets",
+    "time_sensitive_until",
+    "expertise_offered",
+    "help_status",
+    "member_id_connections",
+    "offline_continuation",
+    "mention_confidence"
+  ],
+  "alert_flags": {
+    "offline_continuation_priority_buybox": "off (or digest-only) by default",
+    "mention_full_name": "critical",
+    "mention_first_or_nick": "confirmation queue"
+  }
+}

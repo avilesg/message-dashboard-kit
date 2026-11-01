@@ -1,0 +1,446 @@
+{
+  "version": "2.0",
+  "purpose": "Shared topic vocabulary for classifying messages from your own group-chat archive. Customize labels and keywords freely.",
+  "note": "A message can have multiple topic tags. Primary tag is the strongest match. v2: tech_ai split; keywords matched with word boundaries (prefix-allowed only for v1 stems); bare \"ai\", \"lead\", \"poll\" dropped.",
+  "domains": [
+    {
+      "id": "community",
+      "label": "Community & networking",
+      "topics": [
+        {
+          "id": "intros",
+          "label": "Intros & welcomes",
+          "keywords": [
+            "introduc",
+            "new here",
+            "just joined",
+            "nice to meet",
+            "looking to connect"
+          ]
+        },
+        {
+          "id": "asks_help",
+          "label": "Asks for help / advice",
+          "keywords": [
+            "anyone have",
+            "looking for",
+            "need a",
+            "recommendations",
+            "does anyone"
+          ]
+        },
+        {
+          "id": "wins",
+          "label": "Wins & gratitude",
+          "keywords": [
+            "closed",
+            "under contract",
+            "thank you",
+            "grateful",
+            "win"
+          ]
+        },
+        {
+          "id": "local_chapters",
+          "label": "Local chapters & meetups",
+          "keywords": [
+            "chapter",
+            "local",
+            "meetup",
+            "in person"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "events",
+      "label": "Events & programming",
+      "topics": [
+        {
+          "id": "zoom_daily",
+          "label": "Daily / scheduled Zooms",
+          "keywords": [
+            "zoom",
+            "join zoom",
+            "meeting id",
+            "passcode",
+            "action academy",
+            "deal detective"
+          ]
+        },
+        {
+          "id": "immersion",
+          "label": "Immersions & summits",
+          "keywords": [
+            "immersion",
+            "summit",
+            "san antonio",
+            "squadup"
+          ]
+        },
+        {
+          "id": "trainings",
+          "label": "Trainings & academies",
+          "keywords": [
+            "training",
+            "academy",
+            "semester",
+            "zero to hero",
+            "workshop"
+          ]
+        },
+        {
+          "id": "recordings",
+          "label": "Recordings & calendar",
+          "keywords": [
+            "recording",
+            "calendar",
+            "replay",
+            "missed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "deals",
+      "label": "Deal flow & asset classes",
+      "topics": [
+        {
+          "id": "deals_jv",
+          "label": "Deals & JV",
+          "keywords": [
+            "deal",
+            "jv",
+            "joint venture",
+            "loi",
+            "under contract",
+            "emd"
+          ]
+        },
+        {
+          "id": "multifamily",
+          "label": "Multifamily / apartments",
+          "keywords": [
+            "multifamily",
+            "apartment",
+            "units",
+            "condo conversion"
+          ]
+        },
+        {
+          "id": "str",
+          "label": "STR / Airbnb",
+          "keywords": [
+            "str",
+            "airbnb",
+            "short term",
+            "vacation rental"
+          ]
+        },
+        {
+          "id": "rv_mhp",
+          "label": "RV parks / MHP / land",
+          "keywords": [
+            "rv park",
+            "mobile home",
+            "mhp",
+            "land",
+            "subdivid"
+          ]
+        },
+        {
+          "id": "coliving",
+          "label": "Co-living / specialty housing",
+          "keywords": [
+            "co-living",
+            "coliving",
+            "sober living",
+            "tiny home"
+          ]
+        },
+        {
+          "id": "ops_business",
+          "label": "Operating businesses",
+          "keywords": [
+            "floor care",
+            "business",
+            "cashflowing",
+            "workforce housing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "capital",
+      "label": "Capital & creative finance",
+      "topics": [
+        {
+          "id": "subto",
+          "label": "SubTo / creative finance",
+          "keywords": [
+            "subto",
+            "subject to",
+            "creative finance",
+            "seller finance"
+          ]
+        },
+        {
+          "id": "funding",
+          "label": "Funding & lending",
+          "keywords": [
+            "lender",
+            "funding",
+            "loan",
+            "capital",
+            "private money"
+          ]
+        },
+        {
+          "id": "tc_closing",
+          "label": "TCs & closing",
+          "keywords": [
+            "transaction coordinator",
+            " tc ",
+            "closing",
+            "title"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ops_talent",
+      "label": "Ops, talent & hiring",
+      "topics": [
+        {
+          "id": "hiring",
+          "label": "Hiring & team",
+          "keywords": [
+            "hir",
+            "va ",
+            "assistant",
+            "team leader",
+            "recruit"
+          ]
+        },
+        {
+          "id": "ai_vs_hire",
+          "label": "AI vs hire / process",
+          "keywords": [
+            "what to ai",
+            "automate",
+            "hand off",
+            "process before"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tech_ai",
+      "label": "Tech & AI",
+      "topics": [
+        {
+          "id": "llm_assistants",
+          "label": "LLM assistants",
+          "keywords": [
+            "claude",
+            "chatgpt",
+            "chat gpt",
+            "gpt",
+            "openai",
+            "grok",
+            "gemini",
+            "copilot",
+            "perplexity",
+            "llm",
+            "llms",
+            "prompt",
+            "prompts",
+            "prompting"
+          ]
+        },
+        {
+          "id": "agents_automation",
+          "label": "Agents & automation",
+          "keywords": [
+            "agent",
+            "agents",
+            "agentic",
+            "ai agent",
+            "automation",
+            "automations",
+            "automate",
+            "automated",
+            "zapier",
+            "n8n",
+            "make.com",
+            "ghl",
+            "gohighlevel",
+            "go high level",
+            "chatbot",
+            "chatbots"
+          ]
+        },
+        {
+          "id": "grok_cursor",
+          "label": "Grok Bot / Cursor",
+          "keywords": [
+            "grok bot",
+            "cursor",
+            "supergrok",
+            "super grok",
+            "cursor ultra"
+          ]
+        },
+        {
+          "id": "malli_hive",
+          "label": "Malli / hive data",
+          "keywords": [
+            "malli",
+            "hive",
+            "buy box",
+            "blinq"
+          ]
+        },
+        {
+          "id": "malli_pro",
+          "label": "Malli Pro / onboarding",
+          "keywords": [
+            "malli pro",
+            "malli onboarding"
+          ]
+        },
+        {
+          "id": "marketing_tech",
+          "label": "Marketing tech",
+          "keywords": [
+            "crm",
+            "funnel",
+            "funnels",
+            "facebook group",
+            "ghl",
+            "gohighlevel",
+            "go high level",
+            "blinq"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mindset",
+      "label": "Mindset & leadership",
+      "topics": [
+        {
+          "id": "mindset",
+          "label": "Mindset & culture",
+          "keywords": [
+            "mindset",
+            "partner with",
+            "battle",
+            "encouragement",
+            "tuition"
+          ]
+        },
+        {
+          "id": "veterans",
+          "label": "Veterans & service",
+          "keywords": [
+            "veteran",
+            "army",
+            "military",
+            "service member"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "admin",
+      "label": "Admin & meta",
+      "topics": [
+        {
+          "id": "group_admin",
+          "label": "Group admin",
+          "keywords": [
+            "added",
+            "removed",
+            "security code",
+            "changed this group's"
+          ]
+        },
+        {
+          "id": "media_only",
+          "label": "Media-only / low text",
+          "keywords": [
+            "image omitted",
+            "video omitted",
+            "sticker omitted",
+            "gif omitted"
+          ]
+        }
+      ]
+    }
+  ],
+  "roles_placeholder": [
+    {
+      "id": "educator",
+      "label": "Educator / host",
+      "signals": [
+        "leads Zooms",
+        "posts curriculum",
+        "hosts academy"
+      ]
+    },
+    {
+      "id": "dealmaker",
+      "label": "Dealmaker",
+      "signals": [
+        "posts deals",
+        "asks for capital/partners"
+      ]
+    },
+    {
+      "id": "capital",
+      "label": "Capital / lender",
+      "signals": [
+        "offers funding",
+        "lending"
+      ]
+    },
+    {
+      "id": "operator",
+      "label": "Operator / TC",
+      "signals": [
+        "ops help",
+        "TC",
+        "process"
+      ]
+    },
+    {
+      "id": "ai_builder",
+      "label": "AI / tools builder",
+      "signals": [
+        "AI tools",
+        "Malli",
+        "automation"
+      ]
+    },
+    {
+      "id": "connector",
+      "label": "Connector",
+      "signals": [
+        "intros",
+        "referrals",
+        "@mentions others"
+      ]
+    },
+    {
+      "id": "priority_watch",
+      "label": "Priority watch (manual)",
+      "signals": [
+        "on YourFirstName priority list"
+      ]
+    }
+  ],
+  "notification_config_placeholder": {
+    "description": "Put your real alert rules in a private notification_config.json (never commit). See examples/notification_config.example.json."
+  }
+}

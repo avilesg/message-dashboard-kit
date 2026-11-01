@@ -1,0 +1,18 @@
+{
+  "version": "example-1",
+  "priority_people": [
+    { "name": "Example Person A", "why": "mentor" },
+    { "name": "Example Person B", "why": "deal partner" }
+  ],
+  "my_keywords": [],
+  "mention_names": ["Your Full Name", "YourFirstName"],
+  "rules": [
+    { "when": "priority person posts", "notify": "critical" },
+    { "when": "someone mentions me by name", "notify": "critical" },
+    { "when": "an ask matches my_keywords", "notify": "critical" },
+    { "when": "event or zoom announcements", "notify": "digest_daily" },
+    { "when": "wins or intros", "notify": "digest_weekly" }
+  ],
+  "digest_time_local": "08:00",
+  "quiet_hours_local": ["22:00", "07:00"]
+}

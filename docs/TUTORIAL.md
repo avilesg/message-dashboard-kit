@@ -1,0 +1,78 @@
+# Tutorial: sync your group chat to your own dashboard
+
+Audience: non-technical users with a Grok Bot (or similar bot with a computer).
+Time: about 20–40 minutes the first time.
+
+## 1. Why
+- See patterns: who talks about what, and when.
+- Don't miss the people and topics you care about.
+- Keep your own copy, so when your interests change you just re-ask the dashboard — no re-exporting forever.
+
+## 2. What you get
+- A **personal message store** (your own copy of the chat, with media).
+- A **dashboard**: counts by topic and author, date/time sliders, click through to the actual threads.
+- **Optional alerts** to your private bot chat.
+- Your data stays on your machine or your bot's computer.
+
+## 3. What you need
+- A Grok Bot (or Cursor bot) with its own computer ("the box").
+- Your phone with WhatsApp, able to add a **linked device** (Settings → Linked devices).
+- 20–40 minutes, and willingness to scan a QR code once.
+- This repo's link.
+
+## 4. Path A (recommended): wacli
+**wacli** is a small command-line tool that connects to WhatsApp as a linked device (like WhatsApp Web) and saves messages to a local folder. Docs: https://wacli.sh
+
+1. **Get wacli** — ask your bot: "Install wacli on your box from https://wacli.sh."
+2. **Create an empty store folder** — e.g. "Create a folder called `my-chat-store` for wacli."
+3. **Pair once** — the bot shows a QR. On your phone: WhatsApp → Settings → Linked devices → Link a device → scan. QRs expire fast; ask for a new one if needed.
+4. **Pick the group** — "List my groups and use the one called …".
+5. **Full history + media** — "Backfill all history for that group and download its media." This can take a while.
+6. **Keep a quiet sync running** — "Leave wacli following that group so new messages arrive." Reactions are only captured live, from pairing onward.
+7. **Point the dashboard at the store** — "Load the ontology from <repo URL> and build me a Message tracker Page from my store."
+8. **Set the read-only habit (send lock)** — tell your bot once: "Never send, type, or react in WhatsApp. Read only." Save it to its memory.
+
+## 5. Path B: WhatsApp export (fallback)
+Use when you can't add a linked device, have an older phone, or want a one-shot snapshot.
+1. In the group: ⋮ / group name → More → **Export chat** → with or without media.
+2. Send the `.zip` or `_chat.txt` to your bot (upload in chat).
+3. Ask it to build the dashboard from that file.
+
+Limits: one-shot (re-export for updates), no reactions, media in big exports may be missing or expired, quote/reply links are weaker.
+
+## 6. Topics (ontology)
+- Copy `ontology/topics.share.json` and `ontology/entities.share.json` from this repo.
+- Rename labels or add keywords any time — just ask your bot.
+- Keep private priorities (people, your keywords) out of shared files.
+
+## 7. Alerts (optional)
+- **Critical** — ping me now (priority person posts, someone names me, an ask matches my interests).
+- **Digest** — a daily or weekly roundup for everything else.
+- Start from `examples/notification_config.example.json`; your real copy is private.
+
+## 8. Safety & etiquette
+- Your archive is personal. Don't share or republish others' messages or media.
+- The bot never posts in the group.
+- Don't commit your store, export, or private config to git (the `.gitignore` helps).
+
+## 9. Troubleshooting
+| Problem | Fix |
+|---|---|
+| QR timed out | Ask for a fresh QR and scan within ~20 seconds |
+| "store locked" | Another sync is running. Stop the follow, do the write (backfill/media), then restart follow |
+| `doctor` says locked | Normal while follow is running |
+| Media "unavailable" | WhatsApp no longer has it; it stays marked unavailable, not an error |
+| Empty dashboard | Check the date slider covers your messages |
+
+## First-run status (ask your bot to update)
+- [ ] wacli installed
+- [ ] Store folder created
+- [ ] Phone paired as linked device
+- [ ] Group selected
+- [ ] History backfilled
+- [ ] Media downloaded
+- [ ] Follow sync running
+- [ ] Topics loaded
+- [ ] Dashboard Page built
+- [ ] Read-only rule saved
+- [ ] Alerts configured (optional)

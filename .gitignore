@@ -1,0 +1,20 @@
+# Personal data — never commit
+_chat.txt
+*.zip
+media/
+wacli-store/
+*.db
+*.db-wal
+*.db-shm
+store/
+critical_state.json
+ontology_gap_state.json
+messages_embed*.json
+rx_thumbs.json
+tracker_snapshot.json
+notification_config.json
+notification_config.v*.json
+analysis/
+*amber*
+*.env
+secrets*
