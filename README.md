@@ -33,4 +33,4 @@ Ask for a capability; it's tested on a branch first and only merged if it stays 
 - Don't republish group content.
 
 ## Back up your customizations
-Your personal settings (`config/personal.json`, `*.local.json`) are gitignored and live only on your bot computer. If it is reset they are gone. See [config/BACKUP.md](config/BACKUP.md) and prompt `prompts/07-backup-personal-config.md`.
+Your personal settings (`config/personal.json`, `*.local.json`) are gitignored and live only on your bot computer. If it is reset they are gone. The backup covers preferences and config only (people, keywords, weights, alerts, timezone), not your WhatsApp messages; a message-store backup is a separate, optional job. See [config/BACKUP.md](config/BACKUP.md) and prompt `prompts/07-backup-personal-config.md`.
