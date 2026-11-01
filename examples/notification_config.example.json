@@ -1,18 +1,74 @@
 {
   "version": "example-1",
   "priority_people": [
-    { "name": "Example Person A", "why": "mentor" },
-    { "name": "Example Person B", "why": "deal partner" }
+    {
+      "name": "Example Person A",
+      "why": "mentor"
+    },
+    {
+      "name": "Example Person B",
+      "why": "deal partner"
+    }
   ],
   "my_keywords": [],
-  "mention_names": ["Your Full Name", "YourFirstName"],
+  "mention_names": [
+    "Your Full Name",
+    "YourFirstName"
+  ],
   "rules": [
-    { "when": "priority person posts", "notify": "critical" },
-    { "when": "someone mentions me by name", "notify": "critical" },
-    { "when": "an ask matches my_keywords", "notify": "critical" },
-    { "when": "event or zoom announcements", "notify": "digest_daily" },
-    { "when": "wins or intros", "notify": "digest_weekly" }
+    {
+      "when": "priority person posts",
+      "notify": "critical"
+    },
+    {
+      "when": "someone mentions me by name",
+      "notify": "critical"
+    },
+    {
+      "when": "an ask matches my_keywords",
+      "notify": "critical"
+    },
+    {
+      "when": "event or zoom announcements",
+      "notify": "digest_daily"
+    },
+    {
+      "when": "wins or intros",
+      "notify": "digest_weekly"
+    }
   ],
   "digest_time_local": "08:00",
-  "quiet_hours_local": ["22:00", "07:00"]
+  "quiet_hours_local": [
+    "22:00",
+    "07:00"
+  ],
+  "ontology_review": {
+    "enabled": true,
+    "notify_in_bot_chat": true,
+    "require_owner_agree_before_apply": true,
+    "core_from_git": {
+      "notify": true,
+      "prompt_for_tweak": true,
+      "description": "When shared ontology on git main gains topics/aliases, notify in bot chat and let the owner agree or tweak before using them locally"
+    },
+    "candidates_from_messages": {
+      "notify": true,
+      "prompt_for_tweak": true,
+      "default_layer": "personal",
+      "offer_core_git_pr": true,
+      "description": "When gap watch finds new topic candidates from messages, notify in bot chat with personal vs core-candidate recommendation; wait for agree/tweak"
+    },
+    "git": {
+      "repo": "avilesg/message-dashboard-kit",
+      "branch": "main",
+      "ontology_dir": "ontology",
+      "last_update_file": "ontology/LAST_UPDATE"
+    }
+  },
+  "levels": {
+    "ontology_gap": {
+      "meaning": "Before assessing gaps, compare ontology/LAST_UPDATE on git main (avilesg/message-dashboard-kit) and refresh the ontology folder if newer. Then notify in bot chat with two labeled sections: 'Core (from git)' new shared topics/aliases, and 'Candidate (from messages)' new topics spotted in messages (default personal layer; core-candidate may get a git PR). Owner replies agree or suggests a tweak; nothing is applied until they agree.",
+      "delivery": "Bot chat; agree/tweak reply required before applying (per ontology_review)"
+    }
+  }
 }

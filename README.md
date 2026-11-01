@@ -1,6 +1,6 @@
 # Sync your group chat to your own dashboard
 
-A starter kit for turning **your own** WhatsApp group-chat history into a **personal** dashboard (counts by topic and author, thread drill-down, optional alerts to your bot chat).
+A public repo for turning **your own** WhatsApp group-chat history into a **personal** dashboard (counts by topic and author, thread drill-down, optional alerts to your bot chat).
 
 **This is not a shared message database.** Everyone runs their own copy. Nothing in this repo contains anyone's messages, phone numbers, or private watchlists.
 
@@ -9,7 +9,8 @@ A starter kit for turning **your own** WhatsApp group-chat history into a **pers
 |---|---|
 | `docs/TUTORIAL.md` | Step-by-step setup for non-technical users |
 | `ontology/topics.share.json` | Shared topic vocabulary (areas → topics → keywords) |
-| `docs/ONTOLOGY-LAYERS.md` | Core vs personal ontology layers and gap triage |
+| `ontology/LAST_UPDATE` | Freshness date for `ontology/` on git `main`; bump it whenever that folder changes |
+| `docs/ONTOLOGY-LAYERS.md` | Core vs personal ontology layers, gap triage, and ontology review |
 | `ontology/entities.share.json` | Upper ontology: message types, facets, relationships |
 | `examples/notification_config.example.json` | Placeholder alert settings — copy and edit privately |
 | `scripts/` | Generic CLIs: `classify_store.py`, `build_roster.py`, `build_messages_embed.py` (read-only on a wacli store) |
@@ -25,8 +26,11 @@ A starter kit for turning **your own** WhatsApp group-chat history into a **pers
 ## Optional (advanced): run it on your own machine
 Clone, `cp config/personal.example.json config/personal.json`, fill it in, and run the `scripts/` — see `config/README.md`. Your personal files stay gitignored.
 
+## Ontology review
+Shared topics on git `main` (`ontology/`, freshness in `ontology/LAST_UPDATE`) and new topic candidates from your messages are proposed in bot chat before they apply. You agree or tweak. The two sections are **Core (from git)** and **Candidate (from messages)**. A pull request to this repo happens only if you ask. See `docs/ONTOLOGY-LAYERS.md` and `ontology_review` in `examples/notification_config.example.json`.
+
 ## Want a change?
-Ask for a capability; it's tested on a branch first and only merged if it stays generic (no group-specific or personal details). Or fork the kit yourself.
+Ask for a capability; it's tested on a branch first and only merged if it stays generic (no group-specific or personal details). Or fork this repo yourself.
 
 ## Rules of the road
 - Your archive stays on your machine / bot computer.
