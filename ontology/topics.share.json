@@ -167,6 +167,19 @@
             "cashflowing",
             "workforce housing"
           ]
+        },
+        {
+          "id": "liens_code_violations",
+          "label": "Liens, code violations & municipal lien negotiation",
+          "keywords": [
+            "lien",
+            "liens",
+            "code violation",
+            "code violations",
+            "code enforcement",
+            "municipal fines",
+            "municipal lien"
+          ]
         }
       ]
     },
