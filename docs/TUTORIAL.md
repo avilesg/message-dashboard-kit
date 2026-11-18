@@ -26,7 +26,7 @@ Time: about 20–40 minutes the first time.
 3. You do **not** need to clone, fork, or create a GitHub repo. The bot reads this repo and keeps your settings in its own memory.
 4. Continue with the prompts in `prompts/` (02 → 06), which match Path A below.
 
-**Advanced (optional):** if you know git and want everything on your own machine, clone the repo, copy `config/personal.example.json` to `config/personal.json`, and run `scripts/` locally (see `config/README.md`). Your personal files are gitignored.
+**Advanced (optional):** if you know git and want everything on your own machine, clone the repo, copy `config/custom.example.json` to `config/custom.json`, and run `scripts/` locally (see `config/README.md`). Your personal files are gitignored. If `custom.json` is missing, the scripts still read an older `config/personal.json`.
 
 ## 4. Path A (recommended): wacli
 **wacli** is a small command-line tool that connects to WhatsApp as a linked device (like WhatsApp Web) and saves messages to a local folder. Docs: https://wacli.sh
@@ -52,7 +52,7 @@ Limits: one-shot (re-export for updates), no reactions, media in big exports may
 - Copy `ontology/topics.share.json` and `ontology/entities.share.json` from this repo. Check `ontology/LAST_UPDATE` on git `main` so the core copy is current.
 - Rename labels or add keywords any time — just ask your bot.
 - Keep private priorities (people, your keywords) out of shared files.
-- Two layers: this repo's **core** topics plus your **personal extension** (in your prefs). New terms default to personal; the bot only proposes core additions with your OK. See `ONTOLOGY-LAYERS.md` and prompt 08.
+- Two layers. **Core** is the shared list everyone who builds from the recipe starts with (`ontology/*.share.json`). **Custom** is your own add-on layer, in your prefs, and only you get it. Topics in either layer tag messages right away. New terms default to custom; the bot only proposes a core candidate with your OK. See `ONTOLOGY-LAYERS.md` and prompt 08.
 
 ## 6b. Ontology review
 Before a gap assessment, the bot compares `ontology/LAST_UPDATE` on git `main` and refreshes `ontology/` when that date is newer. It then messages you in bot chat with **Core (from git)** and **Candidate (from messages)**. Nothing is applied until you agree or suggest a tweak. A git pull request for a core candidate happens only if you ask. See `docs/ONTOLOGY-LAYERS.md`.

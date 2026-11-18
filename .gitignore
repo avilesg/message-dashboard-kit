@@ -19,8 +19,11 @@ analysis/
 *.env
 secrets*
 
-# Local personal config & outputs (kit v2)
+# Local custom config and outputs.
+# personal.json is the pre-rename filename. Scripts still read it when custom.json is missing.
+config/custom.json
 config/personal.json
+config/ontology.custom.json
 config/ontology.personal.json
 config/*.local.json
 *.local.json

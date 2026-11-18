@@ -60,19 +60,19 @@
 <body>
 <div class="page">
   <header>
-    <div class="eyebrow">Handout · Message dashboard kit</div>
+    <div class="eyebrow">Handout · Message dashboard repo</div>
     <h1>Six prompts from WhatsApp to a Message tracker</h1>
     <p class="lede">The prompts I used to get a <b>dashboard of my messages by topic</b>. Paste them in order into your Grok Bot chat.</p>
     <div class="legend">
       <span><span class="fill">CAPS</span> = fill in your own</span>
-      <span>Kit: <b>github.com/avilesg/message-dashboard-kit</b></span>
+      <span>Repo: <b>github.com/avilesg/message-dashboard-kit</b></span>
     </div>
   </header>
 
   <p class="note"><b>Imported the Message Dashboard template (Option B)?</b> Its getting-started skill runs most of these steps for you (the ones tagged <span class="tmpl" style="margin-left:0">template runs this</span>). Keep this sheet anyway, as a handout and a <b>recovery checklist</b> if a step fails or you set up a new bot.</p>
 
   <ol>
-    <li class="p"><h2>Load the kit <span class="tmpl">template runs this</span></h2>
+    <li class="p"><h2>Load the repo <span class="tmpl">template runs this</span></h2>
       <div class="prompt">Use <code>https://github.com/avilesg/message-dashboard-kit</code> as your starting point. Read README.md, docs/TUTORIAL.md, ontology/, scripts/, and prompts/. Don't fork or push anything. Keep my group ID, name, and any people lists in your memory only — never in a repo.</div>
       <p class="why">Gives the bot the recipe. Your personal details stay in its memory.</p></li>
 
@@ -89,14 +89,14 @@
       <p class="why">A safety step: the bot can read, but it can never post as you.</p></li>
 
     <li class="p"><h2>Build the tracker <small>the dashboard of messages by topic</small> <span class="tmpl">template runs this</span></h2>
-      <div class="prompt">Using the kit's scripts (classify_store.py, build_roster.py, build_messages_embed.py) and ontology/topics.share.json, build me a "Message tracker" Page for my group: Global and Custom tabs, a Phone roster tab, facet filters (topic, author, date, media), and threads grouped by topic, collapsed by default with counts. Keep outputs on your computer only.</div>
+      <div class="prompt">Using this repo's scripts (classify_store.py, build_roster.py, build_messages_embed.py) and ontology/topics.share.json, build me a "Message tracker" Page for my group: Global and Custom tabs, a Phone roster tab, facet filters (topic, author, date, media), and threads grouped by topic, collapsed by default with counts. Keep outputs on your computer only.</div>
       <p class="why">This is the payoff: your group's threads sorted by topic, with filters.</p></li>
 
     <li class="p opt"><h2>Alerts <small>optional</small> <span class="tmpl">template asks</span></h2>
       <div class="prompt">Optional: start from examples/notification_config.example.json and set up alerts for me — critical (instant), daily digest, weekly digest — sent only to my chat with you. Ask me for keywords and people to watch; keep them in your memory, not the repo.</div>
       <p class="why">Alerts go only to your chat with the bot. Your keywords and names stay out of the repo.</p></li>
     <li class="p"><h2>Back up your settings <small>repeat after changes</small></h2>
-      <div class="prompt">Write or update config/personal.json from what you remember about my setup (group label and JID, timezone, store path, priority people, keywords, custom topics, relationship/topic weights if any, alert and digest settings, notification config pointers). Preferences and config only: do NOT include WhatsApp messages, message store data, or media., using config/personal.example.json as the shape. Keep it gitignored and never commit it to the public kit. Then give me a downloadable copy named personal-config-backup-YYYY-MM-DD.json and tell me what changed since the last backup. Do not change the send lock: wacli stays read-only.</div>
+      <div class="prompt">Write or update config/custom.json from what you remember about my setup: preferences and configuration settings only (group label and JID, timezone, store path, priority people, keywords, custom topics, relationship/topic weights if any, alert and digest settings, notification config pointers), using config/custom.example.json as the shape. If config/custom.json does not exist yet and config/personal.json does, read personal.json and write the updated settings to config/custom.json. Scripts still read personal.json when custom.json is missing. Do NOT include any WhatsApp messages, message store data, or media. Keep it gitignored and never commit it to the public repo. Then give me a downloadable copy named custom-config-backup-YYYY-MM-DD.json and tell me what changed since the last backup. Do not change the send lock: wacli stays read-only.</div>
       <p class="why">If the bot computer is reset, upload this file to a new bot to restore your prefs. It holds settings only, not messages (a message-store backup is a separate, optional job). Keep it private (Drive or an encrypted note).</p></li>
   </ol>
 

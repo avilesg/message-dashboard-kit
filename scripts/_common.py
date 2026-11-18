@@ -3,28 +3,42 @@ import json, os, re, sqlite3
 
 PH_JID = "YOUR_GROUP_JID@g.us"
 
-def load_personal(path=None):
-    """Optional local config (config/personal.json). Never committed."""
+def load_custom(path=None):
+    """Optional local config. Never committed.
+
+    Default search order: config/custom.json, then config/personal.json.
+    personal.json is the backward-compat fallback for installs created
+    before the custom rename. When custom.json exists, it wins.
+    An explicit path is used as given.
+    """
     here = os.path.dirname(os.path.abspath(__file__))
-    for p in [path, os.path.join(here, "..", "config", "personal.json")]:
+    cfg_dir = os.path.join(here, "..", "config")
+    if path:
+        candidates = [path]
+    else:
+        candidates = [
+            os.path.join(cfg_dir, "custom.json"),
+            os.path.join(cfg_dir, "personal.json"),
+        ]
+    for p in candidates:
         if p and os.path.exists(p):
             return json.load(open(p))
     return {}
 
 def add_common_args(ap):
-    ap.add_argument("--config", help="Path to personal.json (default: config/personal.json if present)")
-    ap.add_argument("--db", help="Path to wacli.db (or set store_path in personal.json)")
+    ap.add_argument("--config", help="Path to custom.json (default: config/custom.json if present, else config/personal.json)")
+    ap.add_argument("--db", help="Path to wacli.db (or set store_path in custom.json)")
     ap.add_argument("--chat-jid", help="Group JID, e.g. %s" % PH_JID)
     ap.add_argument("--self-label", help='Label for your own messages (default "You")')
     return ap
 
 def resolve(args):
-    cfg = load_personal(getattr(args, "config", None))
+    cfg = load_custom(getattr(args, "config", None))
     args.db = args.db or cfg.get("store_path") or os.environ.get("WACLI_DB")
     args.chat_jid = args.chat_jid or cfg.get("chat_jid") or os.environ.get("CHAT_JID")
     args.self_label = args.self_label or cfg.get("self_label") or "You"
     if not args.db or not args.chat_jid or args.chat_jid == PH_JID:
-        raise SystemExit("Need --db and --chat-jid (or config/personal.json).")
+        raise SystemExit("Need --db and --chat-jid (or config/custom.json; config/personal.json still works).")
     return cfg
 
 def connect(db):

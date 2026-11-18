@@ -15,9 +15,9 @@ startup-options.html (deck)
   - Open in Chrome/Edge, press F for fullscreen, then share that tab or window in Zoom.
   - Next: Right arrow / Space / Enter / click.  Back: Left arrow / Backspace / right-click.
   - Home / End jump to the first or last slide. Adding #3 to the URL opens slide 3.
-  - Slides: 1 Title · 2 Option A (new bot + git kit) · 3 Option B (import template, fastest)
-            4 Option C (fork/clone, personal.json gitignored) · 5 A vs B vs C table
-            6 Reminder: you own the archive + dashboard; only the recipe is shared; back up personal.json
+  - Slides: 1 Title · 2 Option A (new bot + git repo) · 3 Option B (import template, fastest)
+            4 Option C (fork/clone the repo, custom.json gitignored) · 5 A vs B vs C table
+            6 Reminder: you own the archive + dashboard; only the recipe is shared; back up custom.json
             7 What you can configure (new): 10-card grid of every setting (group & store, priority
               people, keywords/buy-box, notify levels + quiet hours, ontology layers, ontology review
               [new: bot chat flags core-git topics vs candidates from new messages; you agree or tweak

@@ -29,7 +29,7 @@ for r in rows:
     for j in o: cnt[j] += 1; who[j][name] += 1
 TN, k = [], 0
 for n in shape: TN.append([cnt[k + i] for i in range(n)]); k += n
-# Optional: per-topic counts for people you choose (personal.json priority_people; never commit names)
+# Optional: per-topic counts for people you choose (custom.json priority_people; never commit names)
 pp = cfg.get("priority_people", [])
 CM, k = [], 0
 for n in shape: CM.append([[who[k + i][p] for p in pp] for i in range(n)]); k += n

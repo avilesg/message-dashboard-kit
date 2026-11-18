@@ -161,7 +161,7 @@
         <li>Nobody else's bot can see your dashboard</li>
       </ul></div>
       <div class="card"><h3>The shared recipe</h3><ul>
-        <li><b>Kit repo</b>: README, tutorial, topics, scripts, prompts</li>
+        <li><b>Git repo</b>: README, tutorial, topics, scripts, prompts</li>
         <li><b>Optional bot template</b>: the same recipe, with guided setup</li>
         <li>Contains <b>no messages and no contacts</b></li>
       </ul></div>
@@ -176,12 +176,12 @@
       <div class="cc"><span class="n">1</span><div><h4>WhatsApp</h4><p>The source group chat, on your phone</p></div></div>
       <div class="cc"><span class="n">2</span><div><h4>wacli</h4><p>Linked-device sync, paired by QR. <b>Read-only</b></p></div></div>
       <div class="cc"><span class="n">3</span><div><h4>Store</h4><p>Messages + media, private on the bot's computer</p></div></div>
-      <div class="cc"><span class="n">4</span><div><h4>Ontology / topics</h4><p>Shared vocabulary of topics, from the kit</p></div></div>
+      <div class="cc"><span class="n">4</span><div><h4>Ontology / topics</h4><p>Shared vocabulary of topics, from the repo</p></div></div>
       <div class="cc"><span class="n">5</span><div><h4>Classifier + scripts</h4><p>Tag each message with its topics</p></div></div>
       <div class="cc"><span class="n">6</span><div><h4>Message tracker Page</h4><p>The dashboard: Global / Custom / Roster, facets, threads</p></div></div>
       <div class="cc opt"><span class="n">7</span><div><h4>Alerts <small style="font-weight:500;color:var(--warm)">optional</small></h4><p>Critical alerts + digests, only to your bot chat</p></div></div>
-      <div class="cc"><span class="n">8</span><div><h4>Kit repo + bot template</h4><p>How you start. Template is optional</p></div></div>
-      <div class="cc"><span class="n">9</span><div><h4>personal.json backup</h4><p>Prefs and alert settings survive a bot reset (not messages)</p></div></div>
+      <div class="cc"><span class="n">8</span><div><h4>Git repo + bot template</h4><p>How you start. Template is optional</p></div></div>
+      <div class="cc"><span class="n">9</span><div><h4>custom.json backup</h4><p>Prefs and alert settings survive a bot reset (not messages)</p></div></div>
     </div>
   </section>
 
@@ -189,7 +189,7 @@
   <section class="slide" style="justify-content:flex-start;padding-top:5vh">
     <div class="eyebrow" style="margin-bottom:1vh">Architecture</div>
     <h2>How the pieces connect</h2>
-    <div class="arch"><img src="message-dashboard-architecture.jpg" alt="Phone to wacli to private store, then the bot builds the tracker Page, alerts and roster; the starter kit on GitHub supplies ontology, scripts and prompts"></div>
+    <div class="arch"><img src="message-dashboard-architecture.jpg" alt="Phone to wacli to private store, then the bot builds the tracker Page, alerts and roster; the git repo on GitHub supplies ontology, scripts and prompts"></div>
   </section>
 
   <!-- 5 Data flow -->
@@ -219,10 +219,10 @@
         <li>The <b>WhatsApp archive</b> (messages + media)</li>
         <li>The <b>dashboard</b> and its outputs</li>
         <li>Group ID, names, people lists, alert keywords</li>
-        <li><b>personal.json</b> (your private prefs backup, no messages)</li>
+        <li><b>custom.json</b> (your private prefs backup, no messages)</li>
       </ul></div>
       <div class="card"><h3>Shared: the public recipe</h3><ul>
-        <li><b>Kit repo</b>: tutorial, ontology, scripts, prompt templates</li>
+        <li><b>Git repo</b>: tutorial, ontology, scripts, prompt templates</li>
         <li><b>Optional bot template</b>, scrubbed of personal data</li>
         <li>A <b>sample</b> config, never your real one</li>
       </ul></div>
@@ -235,7 +235,7 @@
     <h2>Where each piece of the workshop fits</h2>
     <div class="fit">
       <div class="card hl"><div class="tag">a · Now</div><p><b>This overview</b>: the components and how they connect</p><div class="file"><span class="url">capability-overview.html</span></div></div>
-      <div class="card"><div class="tag">b · Next</div><p><b>Startup options A / B / C</b>: new bot + kit, template, or fork</p><div class="file"><span class="url">startup-options.html</span></div></div>
+      <div class="card"><div class="tag">b · Next</div><p><b>Startup options A / B / C</b>: new bot + git repo, template, or fork</p><div class="file"><span class="url">startup-options.html</span></div></div>
       <div class="card"><div class="tag">c · Leave-behind</div><p><b>Key prompts handout</b>: the setup prompts, numbered</p><div class="file"><span class="url">key-prompts-handout.html</span></div></div>
       <div class="card"><div class="tag">d · Reference</div><p><b>Tutorial Page</b>: the full step-by-step walkthrough</p><div class="file"><span class="url">link in Zoom chat</span></div></div>
     </div>
