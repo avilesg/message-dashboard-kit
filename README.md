@@ -10,12 +10,12 @@ A public repo for turning **your own** WhatsApp group-chat history into a **pers
 | `docs/TUTORIAL.md` | Step-by-step setup for non-technical users |
 | `ontology/topics.share.json` | Shared topic vocabulary (areas → topics → keywords) |
 | `ontology/LAST_UPDATE` | Freshness date for `ontology/` on git `main`; bump it whenever that folder changes |
-| `docs/ONTOLOGY-LAYERS.md` | Core vs personal ontology layers, gap triage, and ontology review |
+| `docs/ONTOLOGY-LAYERS.md` | Core vs custom ontology layers, gap triage, and ontology review |
 | `ontology/entities.share.json` | Upper ontology: message types, facets, relationships |
 | `examples/notification_config.example.json` | Placeholder alert settings — copy and edit privately |
 | `scripts/` | Generic CLIs: `classify_store.py`, `build_roster.py`, `build_messages_embed.py` (read-only on a wacli store) |
 | `prompts/` | Copy-paste prompts for your Grok Bot, in order |
-| `config/` | `personal.example.json` sample for local-clone users (your filled copy is gitignored) |
+| `config/` | `custom.example.json` sample for local-clone users (your filled copy is gitignored) |
 | `walkthroughs/` | Zoom HTML decks: intro landing, capability overview, startup options |
 | `.gitignore` | Keeps your archive, media, and private settings out of git |
 
@@ -25,7 +25,7 @@ A public repo for turning **your own** WhatsApp group-chat history into a **pers
 3. Follow the rest of `prompts/` in order (install wacli, pair QR, read-only lock, build tracker, optional alerts).
 
 ## Optional (advanced): run it on your own machine
-Clone, `cp config/personal.example.json config/personal.json`, fill it in, and run the `scripts/` — see `config/README.md`. Your personal files stay gitignored.
+Clone, `cp config/custom.example.json config/custom.json`, fill it in, and run the `scripts/` — see `config/README.md`. Your personal files stay gitignored. If `custom.json` is missing, the scripts still read an older `config/personal.json`.
 
 ## Ontology review
 Shared topics on git `main` (`ontology/`, freshness in `ontology/LAST_UPDATE`) and new topic candidates from your messages are proposed in bot chat before they apply. You agree or tweak. The two sections are **Core (from git)** and **Candidate (from messages)**. A pull request to this repo happens only if you ask. See `docs/ONTOLOGY-LAYERS.md` and `ontology_review` in `examples/notification_config.example.json`.
@@ -50,4 +50,4 @@ Ask for a capability; it's tested on a branch first and only merged if it stays 
 - Don't republish group content.
 
 ## Back up your customizations
-Your personal settings (`config/personal.json`, `*.local.json`) are gitignored and live only on your bot computer. If it is reset they are gone. The backup covers preferences and config only (people, keywords, weights, alerts, timezone), not your WhatsApp messages; a message-store backup is a separate, optional job. See [config/BACKUP.md](config/BACKUP.md) and prompt `prompts/07-backup-personal-config.md`.
+Your personal settings (`config/custom.json`, `*.local.json`) are gitignored and live only on your bot computer. If it is reset they are gone. The backup covers preferences and config only (people, keywords, weights, alerts, timezone), not your WhatsApp messages; a message-store backup is a separate, optional job. See [config/BACKUP.md](config/BACKUP.md) and prompt `prompts/07-backup-custom-config.md`. Installs that still have `config/personal.json` keep working while `custom.json` is absent (`docs/ONTOLOGY-LAYERS.md`).

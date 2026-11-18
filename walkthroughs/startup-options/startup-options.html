@@ -118,7 +118,7 @@
     <h1>Three ways to start a Message dashboard bot</h1>
     <p class="lede">Same recipe underneath. Pick the start that fits <b>how hands-on you want to be</b>.</p>
     <div class="chips">
-      <span class="chip"><span class="l">A</span>New bot + git kit</span>
+      <span class="chip"><span class="l">A</span>New bot + git repo</span>
       <span class="chip"><span class="l">B</span>Import the template<small>fastest</small></span>
       <span class="chip"><span class="l">C</span>Fork for local config</span>
     </div>
@@ -127,18 +127,18 @@
   <!-- 2 -->
   <section class="slide">
     <div class="opt-head"><span class="badge">A</span>
-      <div><div class="eyebrow" style="margin-bottom:.8vh">Option A</div><h2>New Grok Bot + point it at the git kit</h2></div></div>
+      <div><div class="eyebrow" style="margin-bottom:.8vh">Option A</div><h2>New Grok Bot + point it at the git repo</h2></div></div>
     <p class="what">Start a blank bot and tell it: <b>use</b> <span class="url">github.com/avilesg/message-dashboard-kit</span> <b>as your starting point.</b> It reads the README, tutorial, ontology, scripts and prompts.</p>
     <div class="pc">
       <div class="box pro"><h3>Pros</h3><ul>
         <li><b>Versioned recipe:</b> every change is a commit you can see</li>
-        <li><b>Transparent updates:</b> pull the latest kit any time</li>
+        <li><b>Transparent updates:</b> pull the latest repo any time</li>
         <li><b>Forkable</b> if you want your own variant</li>
         <li>Local clone works well for <b>git-comfortable</b> people</li>
       </ul></div>
       <div class="box con"><h3>Cons</h3><ul>
         <li>The bot still <b>learns the playbook from files</b></li>
-        <li>More <b>"read the kit"</b> time on day one</li>
+        <li>More <b>"read the repo"</b> time on day one</li>
         <li>You type the setup prompts yourself (see handout)</li>
       </ul></div>
     </div>
@@ -157,7 +157,7 @@
       </ul></div>
       <div class="box con"><h3>Cons</h3><ul>
         <li><b>Template revisions are republished</b>, not git commits</li>
-        <li>Still uses the <b>same kit files</b> under the hood</li>
+        <li>Still uses the <b>same repo files</b> under the hood</li>
         <li>Must stay <b>scrubbed of personal data</b> before sharing</li>
       </ul></div>
     </div>
@@ -166,14 +166,14 @@
   <!-- 4 -->
   <section class="slide">
     <div class="opt-head"><span class="badge">C</span>
-      <div><div class="eyebrow" style="margin-bottom:.8vh">Option C</div><h2>Fork or clone the kit for local-only config</h2></div></div>
-    <p class="what">Keep your own copy. Your settings live in <span class="url">personal.json</span>, which is <b>gitignored</b>, so it never leaves your machine.</p>
+      <div><div class="eyebrow" style="margin-bottom:.8vh">Option C</div><h2>Fork or clone the repo for local-only config</h2></div></div>
+    <p class="what">Keep your own copy. Your settings live in <span class="url">custom.json</span>, which is <b>gitignored</b>, so it never leaves your machine.</p>
     <div class="pc">
       <div class="box pro"><h3>Pros</h3><ul>
         <li><b>Full control</b> on your machine</li>
         <li>Change scripts, topics and ontology freely</li>
-        <li>Personal config never lands in a repo</li>
-        <li><b>Back up</b> personal.json or ask the bot for an export, so prefs survive a bot reset (settings only, not messages)</li>
+        <li>Custom config never lands in a repo</li>
+        <li><b>Back up</b> custom.json or ask the bot for an export, so prefs survive a bot reset (settings only, not messages)</li>
       </ul></div>
       <div class="box con"><h3>Cons</h3><ul>
         <li><b>You own git</b>: branches, merges, conflicts</li>
@@ -188,10 +188,10 @@
     <div class="eyebrow">Side by side</div>
     <h2>A vs B vs C</h2>
     <table>
-      <tr><th></th><th>A · New bot + git kit<small>point at the repo</small></th><th>B · Import template<small>getting-started skill</small></th><th>C · Fork / clone<small>personal.json gitignored</small></th></tr>
-      <tr><td class="row">Day-one speed</td><td><span class="meh">Medium</span> · bot reads the kit</td><td><span class="good">Fastest</span> · guided questions</td><td><span class="meh">Slowest</span> · you set it up</td></tr>
+      <tr><th></th><th>A · New bot + git repo<small>point at the repo</small></th><th>B · Import template<small>getting-started skill</small></th><th>C · Fork / clone<small>custom.json gitignored</small></th></tr>
+      <tr><td class="row">Day-one speed</td><td><span class="meh">Medium</span> · bot reads the repo</td><td><span class="good">Fastest</span> · guided questions</td><td><span class="meh">Slowest</span> · you set it up</td></tr>
       <tr><td class="row">Updates</td><td><span class="good">Git commits</span>, transparent</td><td>Template <b>republished</b></td><td><b>You pull</b> upstream</td></tr>
-      <tr><td class="row">Prefs backup</td><td colspan="3">All paths: ask the bot to export personal.json (prompt 7) and keep a private copy, so prefs survive if the bot computer is reset. Prefs/config only (people, keywords, weights, alerts), not messages; a message backup is a separate, optional job</td></tr>
+      <tr><td class="row">Prefs backup</td><td colspan="3">All paths: ask the bot to export custom.json (prompt 7) and keep a private copy, so prefs survive if the bot computer is reset. Prefs/config only (people, keywords, weights, alerts), not messages; a message backup is a separate, optional job</td></tr>
       <tr><td class="row">Control</td><td>Medium</td><td>Lowest (template defaults)</td><td><span class="good">Full</span></td></tr>
       <tr><td class="row">Skill needed</td><td>Comfortable pasting prompts</td><td><span class="good">None</span>, answer questions</td><td>Git + local tooling</td></tr>
       <tr><td class="row">Watch out for</td><td>More reading on day one</td><td>Keep it free of personal data</td><td>Merge conflicts, upkeep</td></tr>
@@ -209,11 +209,11 @@
         <li>The <b>dashboard</b> and its outputs</li>
       </ul></div>
       <div class="card"><h3>Shared</h3><ul>
-        <li><b>Only the recipe</b>: kit files, scripts, topic ontology</li>
+        <li><b>Only the recipe</b>: repo files, scripts, topic ontology</li>
         <li>No messages, no contacts, no personal config</li>
       </ul></div>
     </div>
-    <p class="note"><b>Back up personal.json:</b> ask the bot to export it and keep a private copy, so your prefs survive a bot reset. It holds settings only, not your messages.</p>
+    <p class="note"><b>Back up custom.json:</b> ask the bot to export it and keep a private copy, so your prefs survive a bot reset. It holds settings only, not your messages. An older personal.json still works when custom.json is missing.</p>
   </section>
 
   <!-- 7 -->
@@ -230,19 +230,19 @@
       <div class="c"><h3><span class="n">4</span>Notify levels</h3>
         <p><b>Critical</b> · <b>daily digest</b> · <b>weekly</b> · <b>mute</b>, per topic.</p><p>Plus <b>quiet hours</b>.</p></div>
       <div class="c"><h3><span class="n">5</span>Ontology layers</h3>
-        <p><b>Shared core</b>: <code>ontology/</code> on git <code>main</code> of avilesg/message-dashboard-kit.</p><p><b>Personal extension</b>: local, gitignored.</p></div>
+        <p><b>Core</b>: the shared list everyone who builds from the recipe starts with (<code>ontology/</code> on git <code>main</code>).</p><p><b>Custom</b>: your own add-on layer, only you get it, local and gitignored. Topics in either layer tag messages right away.</p></div>
       <div class="c new"><h3><span class="n">6</span>Ontology review<span class="tag">New</span></h3>
-        <p>Bot chat flags <b>(A) new core topics</b> from git vs <b>(B) candidates</b> from new messages.</p><p>You <b>agree or suggest a tweak</b> before it applies. Candidates go to <b>personal</b>; a core git PR only if you ask.</p></div>
+        <p>Bot chat flags <b>(A) new core topics</b> from git vs <b>(B) candidates</b> from new messages.</p><p>You <b>agree or suggest a tweak</b> before it applies. Candidates go to <b>custom</b>; a core candidate gets a git PR only if you ask.</p></div>
       <div class="c"><h3><span class="n">7</span>Ontology freshness</h3>
         <p><code>ontology/LAST_UPDATE</code> in the repo folder. The gap job checks it <b>before assessing new topics</b>.</p></div>
       <div class="c"><h3><span class="n">8</span>Prefs backup</h3>
-        <p>Export <code>personal.json</code> and keep a private copy. <b>Settings only, not messages.</b></p></div>
+        <p>Export <code>custom.json</code> and keep a private copy. <b>Settings only, not messages.</b></p></div>
       <div class="c safe"><h3><span class="n">9</span>Safety</h3>
         <p>WhatsApp is <b>read-only</b>. The <b>send lock</b> stays on.</p></div>
       <div class="c"><h3><span class="n">10</span>Optional delivery</h3>
         <p><b>Slack or email</b> alerts can be added later. Bot chat is the default.</p></div>
     </div>
-    <p class="note"><b>Where settings live:</b> your personal config + notification config. The template seeds the defaults; the shared ontology and scripts stay on git <b>main</b>.</p>
+    <p class="note"><b>Where settings live:</b> your custom config + notification config. The template seeds the defaults; the shared ontology and scripts stay on git <b>main</b>.</p>
   </section>
 
 </div>

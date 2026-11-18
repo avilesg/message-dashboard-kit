@@ -1,0 +1,21 @@
+{
+  "_note": "Copy to config/custom.json (gitignored) and fill in. Never commit the filled copy. Back it up: see config/BACKUP.md. Migration: if you already have config/personal.json and no custom.json, the scripts still read personal.json.",
+  "group_label": "YOUR GROUP NAME",
+  "chat_jid": "YOUR_GROUP_JID@g.us",
+  "timezone": "America/New_York",
+  "store_path": "/path/to/your/wacli/wacli.db",
+  "self_label": "You",
+  "priority_people": [],
+  "keywords": [],
+  "custom_topics": [],
+  "topic_aliases": {},
+  "topic_weights": {},
+  "relationship_weights": {},
+  "ontology_extension_note": "Custom ontology layer, merged with ontology/*.share.json at classify time. Core is the shared list everyone who builds from the recipe starts with; custom is your own add-on layer and only you get it. Topics in either layer tag messages right away. Optional larger overlay: config/ontology.custom.json (gitignored). Migration: config/ontology.personal.json still works when ontology.custom.json is missing. See docs/ONTOLOGY-LAYERS.md.",
+  "notify_overrides_note": "Put your real alert settings in config/notification_config.local.json (gitignored), based on examples/notification_config.example.json.",
+  "ontology_review": {
+    "enabled": true,
+    "require_owner_agree_before_apply": true,
+    "_note": "Detail lives in ontology_review in your notification config (examples/notification_config.example.json)."
+  }
+}

@@ -16,9 +16,9 @@ Suggested workshop order
 
 Slides
   1 Title: your group chat -> your own private dashboard
-  2 Principle: your copy on your bot's computer; only the recipe (kit + optional template) is shared
+  2 Principle: your copy on your bot's computer; only the recipe (git repo + optional template) is shared
   3 Components map: WhatsApp, wacli, store, ontology/topics, classifier + scripts,
-    Message tracker Page, optional alerts, kit repo + bot template, personal.json backup
+    Message tracker Page, optional alerts, git repo + bot template, custom.json backup
   4 Architecture graphic
   5 Data flow: phone -> wacli -> store -> classify -> tracker (+ optional alerts)
   6 Shared vs private

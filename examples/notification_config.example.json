@@ -54,9 +54,9 @@
     "candidates_from_messages": {
       "notify": true,
       "prompt_for_tweak": true,
-      "default_layer": "personal",
+      "default_layer": "custom",
       "offer_core_git_pr": true,
-      "description": "When gap watch finds new topic candidates from messages, notify in bot chat with personal vs core-candidate recommendation; wait for agree/tweak"
+      "description": "When gap watch finds new topic candidates from messages, notify in bot chat with a custom vs core-candidate recommendation; wait for agree/tweak. An older default_layer value of personal means custom."
     },
     "git": {
       "repo": "avilesg/message-dashboard-kit",
@@ -67,7 +67,7 @@
   },
   "levels": {
     "ontology_gap": {
-      "meaning": "Before assessing gaps, compare ontology/LAST_UPDATE on git main (avilesg/message-dashboard-kit) and refresh the ontology folder if newer. Then notify in bot chat with two labeled sections: 'Core (from git)' new shared topics/aliases, and 'Candidate (from messages)' new topics spotted in messages (default personal layer; core-candidate may get a git PR). Owner replies agree or suggests a tweak; nothing is applied until they agree.",
+      "meaning": "Before assessing gaps, compare ontology/LAST_UPDATE on git main (avilesg/message-dashboard-kit) and refresh the ontology folder if newer. Then notify in bot chat with two labeled sections: 'Core (from git)' new shared topics/aliases, and 'Candidate (from messages)' new topics spotted in messages (default custom layer; a core candidate may get a git PR). Core is the shared list everyone who builds from the recipe starts with. Custom is the user's own add-on layer and only they get it. Topics in either layer tag messages right away. Owner replies agree or suggests a tweak; nothing is applied until they agree.",
       "delivery": "Bot chat; agree/tweak reply required before applying (per ontology_review)"
     }
   }
